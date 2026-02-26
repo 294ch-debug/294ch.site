@@ -1,75 +1,253 @@
 <!doctype html>
-<html lang="ja" data-page="top">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Top | 294ch</title>
-    <meta name="description" content="294ch 公式サイト。リリース、ニュース、連絡先。">
-    <link rel="stylesheet" href="/assets/site.css">
-    <script defer src="/assets/site.js"></script>
-  </head>
-  <body>
-    <div class="site-bg" aria-hidden="true">
-      <div class="bg-grid"></div>
-      <div class="bg-glow"></div>
-      <div class="bg-scanlines"></div>
-      <canvas class="bg-spectrum" data-spectrum aria-hidden="true"></canvas>
-      <div class="bg-hud" aria-hidden="true">
-        <div class="hud-reticle hud-reticle--a"></div>
-        <div class="hud-reticle hud-reticle--b"></div>
-        <div class="hud-meter hud-meter--left"><div class="hud-label">SIGNAL / AUDIO</div></div>
-        <div class="hud-meter hud-meter--right"><div class="hud-label">SYSTEM / METRICS</div></div>
-      </div>
-      <div class="bg-logo"><img src="/logo.png" alt=""></div>
-    </div>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>294ch | Cyber Interface</title>
 
-    <header class="site-header">
-      <div class="nav-wrap">
-        <a class="brand" href="/"><img class="brand-logo" src="/logo.png" alt="294ch"><span>294ch</span></a>
-        <button class="menu-toggle" data-menu-toggle aria-controls="main-nav" aria-expanded="false">Menu</button>
-        <nav id="main-nav" class="main-nav" data-nav aria-label="Primary">
-          <ul>
-            <li><a href="/" aria-current="page">Top</a></li>
-            <li><a href="/about/">About</a></li>
-            <li><a href="/news/">News</a></li>
-            <li><a href="/discography/">Discography</a></li>
-            <li><a href="/goods/">Goods</a></li>
-            <li><a href="/contact/">Contact</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+<style>
+/* ===== BASE ===== */
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:#050914;
+  color:#cffff5;
+  font-family:monospace;
+  overflow-x:hidden;
+}
 
-    <main class="container page">
-      <section class="hero" aria-labelledby="top-title">
-        <span class="tag">System Online</span>
-        <h1 class="hero-title">294ch</h1>
-        <p>
-          A minimal high-end cyberpunk interface for releases, updates, and direct contact. Built for clarity,
-          engineered for atmosphere.
-        </p>
-      </section>
+/* ===== GRID BACKGROUND ===== */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(rgba(0,255,200,.08) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,255,200,.08) 1px,transparent 1px);
+  background-size:40px 40px;
+  z-index:-3;
+}
 
-      <section class="grid" aria-label="Highlights">
-        <article class="panel span-8">
-          <h2>Current Signal</h2>
-          <p>
-            New live sequence currently in production. Follow the news feed for performance windows and distribution drops.
-          </p>
-        </article>
-        <article class="panel span-4">
-          <h2>Status</h2>
-          <ul class="list-reset">
-            <li>Tour prep: Active</li>
-            <li>Studio block: Week 7</li>
-            <li>Merch restock: Pending</li>
-          </ul>
-        </article>
-      </section>
-    </main>
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at 50% 40%,rgba(0,255,200,.08),transparent 60%);
+  z-index:-2;
+}
 
-    <footer class="site-footer">
-      <small>&copy; 2026 294ch. All rights reserved.</small>
-    </footer>
-  </body>
+/* ===== HEADER ===== */
+header{
+  padding:28px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(0,255,200,.2);
+}
+
+.logo{
+  font-size:18px;
+  letter-spacing:.25em;
+}
+
+nav a{
+  color:#cffff5;
+  text-decoration:none;
+  margin-left:24px;
+  font-size:13px;
+  opacity:.6;
+}
+
+nav a:hover{opacity:1}
+
+/* ===== HERO ===== */
+.hero{
+  padding:120px 40px 80px;
+  max-width:900px;
+}
+
+.hero h1{
+  font-size:64px;
+  letter-spacing:.15em;
+  margin-bottom:20px;
+  text-shadow:0 0 20px rgba(0,255,200,.4);
+}
+
+.hero p{
+  opacity:.6;
+  line-height:1.8;
+}
+
+/* ===== PANELS ===== */
+.grid{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:40px;
+  padding:40px;
+}
+
+.panel{
+  border:1px solid rgba(0,255,200,.25);
+  padding:30px;
+  box-shadow:0 0 25px rgba(0,255,200,.08);
+  animation:neonPulse 3s infinite ease-in-out;
+}
+
+@keyframes neonPulse{
+  0%,100%{box-shadow:0 0 25px rgba(0,255,200,.08)}
+  50%{box-shadow:0 0 45px rgba(0,255,200,.25)}
+}
+
+/* ===== HUD LAYER ===== */
+.hud-layer{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1000;
+}
+
+/* Radar */
+.radar{
+  position:absolute;
+  bottom:40px;
+  right:40px;
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  border:1px solid rgba(0,255,200,.4);
+}
+
+.radar::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background:conic-gradient(rgba(0,255,200,.4) 0deg,transparent 60deg);
+  animation:spin 3s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+/* Meter */
+.meter{
+  position:absolute;
+  bottom:60px;
+  left:40px;
+  width:300px;
+  height:8px;
+  border:1px solid rgba(0,255,200,.3);
+}
+
+.meter-bar{
+  height:100%;
+  width:47%;
+  background:rgba(0,255,200,.4);
+  box-shadow:0 0 15px rgba(0,255,200,.5);
+}
+
+/* Alien Text */
+.alien-text{
+  position:absolute;
+  top:140px;
+  right:60px;
+  font-size:12px;
+  opacity:.6;
+  letter-spacing:.2em;
+  line-height:1.6;
+}
+
+/* Spectrum */
+canvas{
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:120px;
+  opacity:.25;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">294CH</div>
+  <nav>
+    <a href="#">TOP</a>
+    <a href="#">ABOUT</a>
+    <a href="#">NEWS</a>
+    <a href="#">DISCOGRAPHY</a>
+    <a href="#">GOODS</a>
+    <a href="#">CONTACT</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>PRECISION SIGNAL</h1>
+  <p>Minimal cyber interface for releases, system updates and broadcast transmission. Engineered for atmosphere.</p>
+</section>
+
+<section class="grid">
+  <div class="panel">
+    <h2>Current Signal</h2>
+    <p>Transmission unit active. New sequence processing. Awaiting deployment.</p>
+  </div>
+  <div class="panel">
+    <h2>Status</h2>
+    <p>Tour Prep: Active<br>Studio: Week 7<br>Merch: Pending</p>
+  </div>
+</section>
+
+<!-- HUD -->
+<div class="hud-layer">
+  <canvas id="spectrum"></canvas>
+  <div class="radar"></div>
+  <div class="meter">
+    <div class="meter-bar"></div>
+  </div>
+  <div class="alien-text" id="alienText"></div>
+</div>
+
+<script>
+/* ===== ALIEN TEXT ===== */
+const glyphs="∆ΞΛΦΩ⊗⊘⌬⍟⧖";
+const letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+function alienLine(){
+ let s="";
+ for(let i=0;i<28;i++){
+  s+=Math.random()>0.7?
+  glyphs[Math.floor(Math.random()*glyphs.length)]:
+  letters[Math.floor(Math.random()*letters.length)];
+ }
+ return s;
+}
+setInterval(()=>{
+ document.getElementById("alienText").innerHTML=
+  alienLine()+"<br>"+alienLine()+"<br>"+alienLine();
+},1000);
+
+/* ===== SPECTRUM ===== */
+const canvas=document.getElementById("spectrum");
+const ctx=canvas.getContext("2d");
+function resize(){
+ canvas.width=window.innerWidth;
+ canvas.height=120;
+}
+resize();
+window.onresize=resize;
+
+function draw(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ for(let i=0;i<canvas.width;i+=12){
+  let h=Math.random()*80;
+  ctx.fillStyle="rgba(0,255,200,.6)";
+  ctx.fillRect(i,120-h,8,h);
+ }
+ requestAnimationFrame(draw);
+}
+draw();
+</script>
+
+</body>
 </html>
