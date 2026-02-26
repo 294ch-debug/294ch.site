@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" data-page="contact">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contact | Neon Forge Unit</title>
+    <meta name="description" content="Contact Neon Forge Unit.">
+    <link rel="stylesheet" href="/assets/site.css">
+    <script defer src="/assets/site.js"></script>
+  </head>
+  <body>
+    <div class="site-bg" aria-hidden="true">
+      <div class="bg-grid"></div>
+      <div class="bg-glow"></div>
+      <div class="bg-scanlines"></div>
+      <div class="bg-logo"><img src="/logo.png" alt=""></div>
+    </div>
+
+    <header class="site-header">
+      <div class="nav-wrap">
+        <a class="brand" href="/">Neon Forge Unit</a>
+        <button class="menu-toggle" data-menu-toggle aria-controls="main-nav" aria-expanded="false">Menu</button>
+        <nav id="main-nav" class="main-nav" data-nav aria-label="Primary">
+          <ul>
+            <li><a href="/">Top</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/news/">News</a></li>
+            <li><a href="/discography/">Discography</a></li>
+            <li><a href="/goods/">Goods</a></li>
+            <li><a href="/contact/" aria-current="page">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container page">
+      <section class="hero" aria-labelledby="contact-title">
+        <span class="tag">Direct Link</span>
+        <h1 id="contact-title">Contact</h1>
+        <p>For booking, licensing, collaboration, or media requests.</p>
+      </section>
+
+      <section class="panel span-8" aria-label="Contact form">
+        <form action="#" method="post">
+          <label for="name">Name
+            <input id="name" name="name" type="text" autocomplete="name" required>
+          </label>
+
+          <label for="email">Email
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </label>
+
+          <label for="message">Message
+            <textarea id="message" name="message" required></textarea>
+          </label>
+
+          <button type="submit">Send Message</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <small>&copy; 2026 Neon Forge Unit. All rights reserved.</small>
+    </footer>
+  </body>
+</html>
