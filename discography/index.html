@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en" data-page="discography">
+<html lang="ja" data-page="discography">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Discography | Neon Forge Unit</title>
-    <meta name="description" content="Catalog and release archive.">
+    <title>Discography | 294ch</title>
+    <meta name="description" content="294ch の作品一覧・配信リンク。">
     <link rel="stylesheet" href="/assets/site.css">
     <script defer src="/assets/site.js"></script>
   </head>
@@ -13,12 +13,19 @@
       <div class="bg-grid"></div>
       <div class="bg-glow"></div>
       <div class="bg-scanlines"></div>
+      <canvas class="bg-spectrum" data-spectrum aria-hidden="true"></canvas>
+      <div class="bg-hud" aria-hidden="true">
+        <div class="hud-reticle hud-reticle--a"></div>
+        <div class="hud-reticle hud-reticle--b"></div>
+        <div class="hud-meter hud-meter--left"><div class="hud-label">SIGNAL / AUDIO</div></div>
+        <div class="hud-meter hud-meter--right"><div class="hud-label">SYSTEM / METRICS</div></div>
+      </div>
       <div class="bg-logo"><img src="/logo.png" alt=""></div>
     </div>
 
     <header class="site-header">
       <div class="nav-wrap">
-        <a class="brand" href="/">Neon Forge Unit</a>
+        <a class="brand" href="/"><img class="brand-logo" src="/logo.png" alt="294ch"><span>294ch</span></a>
         <button class="menu-toggle" data-menu-toggle aria-controls="main-nav" aria-expanded="false">Menu</button>
         <nav id="main-nav" class="main-nav" data-nav aria-label="Primary">
           <ul>
@@ -62,7 +69,7 @@
     </main>
 
     <footer class="site-footer">
-      <small>&copy; 2026 Neon Forge Unit. All rights reserved.</small>
+      <small>&copy; 2026 294ch. All rights reserved.</small>
     </footer>
   </body>
 </html>
