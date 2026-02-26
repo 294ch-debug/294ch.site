@@ -3,168 +3,199 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>294ch | Offical Website</title>
+<title>294ch | Official</title>
+<meta name="description" content="294ch Official Website. News, discography, live schedule and contact.">
 
 <style>
-/* ===== BASE ===== */
 *{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#ffffff;
+  --fg:#0a0a0a;
+  --muted:rgba(10,10,10,.62);
+  --line:rgba(10,10,10,.14);
+  --soft:rgba(10,10,10,.06);
+}
 body{
-  background:#050914;
-  color:#cffff5;
-  font-family:monospace;
-  overflow-x:hidden;
+  background:var(--bg);
+  color:var(--fg);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+  letter-spacing:.01em;
 }
+a{color:inherit;text-decoration:none}
+.container{max-width:1120px;margin:0 auto;padding:0 20px}
 
-/* ===== GRID BACKGROUND ===== */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    linear-gradient(rgba(0,255,200,.08) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,255,200,.08) 1px,transparent 1px);
-  background-size:40px 40px;
-  z-index:-3;
-}
-
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:radial-gradient(circle at 50% 40%,rgba(0,255,200,.08),transparent 60%);
-  z-index:-2;
-}
-
-/* ===== HEADER ===== */
+/* Header */
 header{
-  padding:28px 40px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border-bottom:1px solid rgba(0,255,200,.2);
+  position:sticky; top:0; z-index:50;
+  background:rgba(255,255,255,.92);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid var(--line);
 }
-
+.header-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  height:72px;
+}
 .logo{
-  font-size:18px;
-  letter-spacing:.25em;
+  font-weight:800;
+  letter-spacing:.18em;
+  font-size:14px;
 }
-
+nav{
+  display:flex; gap:18px;
+  overflow-x:auto; white-space:nowrap;
+  -webkit-overflow-scrolling:touch;
+}
 nav a{
-  color:#cffff5;
-  text-decoration:none;
-  margin-left:24px;
-  font-size:13px;
-  opacity:.6;
-}
-
-nav a:hover{opacity:1}
-
-/* ===== HERO ===== */
-.hero{
-  padding:120px 40px 80px;
-  max-width:900px;
-}
-
-.hero h1{
-  font-size:64px;
-  letter-spacing:.15em;
-  margin-bottom:20px;
-  text-shadow:0 0 20px rgba(0,255,200,.4);
-}
-
-.hero p{
-  opacity:.6;
-  line-height:1.8;
-}
-
-/* ===== PANELS ===== */
-.grid{
-  display:grid;
-  grid-template-columns:2fr 1fr;
-  gap:40px;
-  padding:40px;
-}
-
-.panel{
-  border:1px solid rgba(0,255,200,.25);
-  padding:30px;
-  box-shadow:0 0 25px rgba(0,255,200,.08);
-  animation:neonPulse 3s infinite ease-in-out;
-}
-
-@keyframes neonPulse{
-  0%,100%{box-shadow:0 0 25px rgba(0,255,200,.08)}
-  50%{box-shadow:0 0 45px rgba(0,255,200,.25)}
-}
-
-/* ===== HUD LAYER ===== */
-.hud-layer{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:1000;
-}
-
-/* Radar */
-.radar{
-  position:absolute;
-  bottom:40px;
-  right:40px;
-  width:220px;
-  height:220px;
-  border-radius:50%;
-  border:1px solid rgba(0,255,200,.4);
-}
-
-.radar::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:50%;
-  background:conic-gradient(rgba(0,255,200,.4) 0deg,transparent 60deg);
-  animation:spin 3s linear infinite;
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg)}
-}
-
-/* Meter */
-.meter{
-  position:absolute;
-  bottom:60px;
-  left:40px;
-  width:300px;
-  height:8px;
-  border:1px solid rgba(0,255,200,.3);
-}
-
-.meter-bar{
-  height:100%;
-  width:47%;
-  background:rgba(0,255,200,.4);
-  box-shadow:0 0 15px rgba(0,255,200,.5);
-}
-
-/* Alien Text */
-.alien-text{
-  position:absolute;
-  top:140px;
-  right:60px;
   font-size:12px;
-  opacity:.6;
-  letter-spacing:.2em;
-  line-height:1.6;
+  opacity:.72;
+  padding:8px 6px;
+  border-radius:10px;
+}
+nav a:hover{opacity:1;background:var(--soft)}
+
+/* Hero */
+.hero{
+  padding:92px 0 56px;
+}
+.hero h1{
+  font-size:clamp(44px,6vw,84px);
+  line-height:1.02;
+  letter-spacing:.02em;
+  font-weight:900;
+}
+.hero p{
+  margin-top:18px;
+  max-width:720px;
+  color:var(--muted);
+  line-height:1.9;
+  font-size:14px;
+}
+.hero-cta{
+  margin-top:28px;
+  display:flex; gap:12px; flex-wrap:wrap;
+}
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  height:44px; padding:0 16px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  font-size:12px;
+}
+.btn.primary{
+  background:var(--fg);
+  color:var(--bg);
+  border-color:var(--fg);
+}
+.btn:hover{transform:translateY(-1px)}
+small.note{display:block;margin-top:12px;color:var(--muted);font-size:12px}
+
+/* Sections */
+.section{
+  padding:56px 0;
+  border-top:1px solid var(--line);
+}
+.section-head{
+  display:flex; align-items:baseline; justify-content:space-between;
+  gap:16px; margin-bottom:18px;
+}
+.section h2{
+  font-size:14px;
+  letter-spacing:.22em;
+  font-weight:900;
+}
+.section .sub{
+  font-size:12px;
+  color:var(--muted);
 }
 
-/* Spectrum */
-canvas{
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:100%;
-  height:120px;
-  opacity:.25;
+/* Cards */
+.cards{
+  display:grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap:14px;
+}
+.card{
+  grid-column: span 6;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px;
+  background:#fff;
+  transition:transform .15s ease, background .15s ease;
+}
+.card:hover{transform:translateY(-2px); background:rgba(10,10,10,.02)}
+.meta{display:flex; gap:10px; align-items:center; color:var(--muted); font-size:12px}
+.tag{
+  border:1px solid var(--line);
+  padding:3px 10px;
+  border-radius:999px;
+  font-size:11px;
+  letter-spacing:.08em;
+}
+.card h3{margin-top:10px;font-size:18px;line-height:1.35;font-weight:800}
+.card p{margin-top:8px;color:var(--muted);line-height:1.8;font-size:13px}
+
+/* Disco */
+.disco{
+  display:grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap:14px;
+}
+.release{
+  grid-column: span 4;
+  border:1px solid var(--line);
+  border-radius:18px;
+  overflow:hidden;
+  background:#fff;
+  transition:transform .15s ease;
+}
+.release:hover{transform:translateY(-2px)}
+.thumb{
+  aspect-ratio: 1 / 1;
+  background:linear-gradient(135deg, rgba(10,10,10,.08), rgba(10,10,10,.02));
+}
+.release .inner{padding:14px}
+.release .title{font-weight:800; font-size:14px; line-height:1.4}
+.release .date{margin-top:8px;color:var(--muted);font-size:12px}
+
+/* Live list */
+.list{
+  display:grid;
+  gap:10px;
+}
+.row{
+  display:flex; justify-content:space-between; gap:14px;
+  padding:14px 16px;
+  border:1px solid var(--line);
+  border-radius:14px;
+}
+.row .left{display:flex; flex-direction:column; gap:4px}
+.row .right{color:var(--muted); font-size:12px; white-space:nowrap}
+.row .ttl{font-weight:800}
+.row .loc{color:var(--muted); font-size:12px}
+
+/* Footer */
+footer{
+  border-top:1px solid var(--line);
+  padding:24px 0;
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* Responsive */
+@media (max-width: 860px){
+  .card{grid-column: span 12;}
+  .release{grid-column: span 6;}
+}
+@media (max-width: 520px){
+  .release{grid-column: span 12;}
+  .hero{padding:72px 0 42px;}
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{scroll-behavior:auto}
+  .btn,.card,.release{transition:none}
+  .btn:hover,.card:hover,.release:hover{transform:none}
 }
 </style>
 </head>
@@ -172,82 +203,140 @@ canvas{
 <body>
 
 <header>
-  <div class="logo">294CH</div>
-  <nav>
-    <a href="#">TOP</a>
-    <a href="#">ABOUT</a>
-    <a href="#">NEWS</a>
-    <a href="#">DISCOGRAPHY</a>
-    <a href="#">GOODS</a>
-    <a href="#">CONTACT</a>
-  </nav>
+  <div class="container header-inner">
+    <div class="logo">294CH</div>
+    <nav aria-label="Global">
+      <a href="#top">TOP</a>
+      <a href="#news">NEWS</a>
+      <a href="#disco">DISCOGRAPHY</a>
+      <a href="#live">LIVE</a>
+      <a href="#about">ABOUT</a>
+      <a href="#contact">CONTACT</a>
+    </nav>
+  </div>
 </header>
 
-<section class="hero">
-  <h1>PRECISION SIGNAL</h1>
-  <p>Minimal cyber interface for releases, system updates and broadcast transmission. Engineered for atmosphere.</p>
-</section>
+<main id="top" class="container">
+  <section class="hero">
+    <h1>ATTACK THE SILENCE.</h1>
+    <p>
+      294ch official transmission. Releases, system updates, live schedule.
+      Minimal, loud, precise.
+    </p>
+    <div class="hero-cta">
+      <a class="btn primary" href="#news">LATEST NEWS</a>
+      <a class="btn" href="#contact">BOOKING / CONTACT</a>
+    </div>
+    <small class="note">※ ここに一言で世界観を足すと一気に“公式感”が出ます（例：Bass-forward cyber unit）。</small>
+  </section>
 
-<section class="grid">
-  <div class="panel">
-    <h2>Current Signal</h2>
-    <p>Transmission unit active. New sequence processing. Awaiting deployment.</p>
-  </div>
-  <div class="panel">
-    <h2>Status</h2>
-    <p>Tour Prep: Active<br>Studio: Week 7<br>Merch: Pending</p>
-  </div>
-</section>
+  <section id="news" class="section">
+    <div class="section-head">
+      <h2>NEWS</h2>
+      <div class="sub">Latest updates</div>
+    </div>
 
-<!-- HUD -->
-<div class="hud-layer">
-  <canvas id="spectrum"></canvas>
-  <div class="radar"></div>
-  <div class="meter">
-    <div class="meter-bar"></div>
-  </div>
-  <div class="alien-text" id="alienText"></div>
-</div>
+    <div class="cards">
+      <a class="card" href="#">
+        <div class="meta"><span class="tag">UPDATE</span><span>2026.03.01</span></div>
+        <h3>New release announced</h3>
+        <p>概要テキスト（1〜2行）。ここは短く。</p>
+      </a>
+      <a class="card" href="#">
+        <div class="meta"><span class="tag">LIVE</span><span>2026.02.20</span></div>
+        <h3>Live information updated</h3>
+        <p>会場・日付の要点だけ。詳細はリンク先へ。</p>
+      </a>
+    </div>
+  </section>
 
-<script>
-/* ===== ALIEN TEXT ===== */
-const glyphs="∆ΞΛΦΩ⊗⊘⌬⍟⧖";
-const letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-function alienLine(){
- let s="";
- for(let i=0;i<28;i++){
-  s+=Math.random()>0.7?
-  glyphs[Math.floor(Math.random()*glyphs.length)]:
-  letters[Math.floor(Math.random()*letters.length)];
- }
- return s;
-}
-setInterval(()=>{
- document.getElementById("alienText").innerHTML=
-  alienLine()+"<br>"+alienLine()+"<br>"+alienLine();
-},1000);
+  <section id="disco" class="section">
+    <div class="section-head">
+      <h2>DISCOGRAPHY</h2>
+      <div class="sub">EP / Single / MV</div>
+    </div>
 
-/* ===== SPECTRUM ===== */
-const canvas=document.getElementById("spectrum");
-const ctx=canvas.getContext("2d");
-function resize(){
- canvas.width=window.innerWidth;
- canvas.height=120;
-}
-resize();
-window.onresize=resize;
+    <div class="disco">
+      <a class="release" href="#">
+        <div class="thumb" aria-hidden="true"></div>
+        <div class="inner">
+          <div class="title">EP TITLE</div>
+          <div class="date">2026.XX.XX</div>
+        </div>
+      </a>
+      <a class="release" href="#">
+        <div class="thumb" aria-hidden="true"></div>
+        <div class="inner">
+          <div class="title">SINGLE TITLE</div>
+          <div class="date">2026.XX.XX</div>
+        </div>
+      </a>
+      <a class="release" href="#">
+        <div class="thumb" aria-hidden="true"></div>
+        <div class="inner">
+          <div class="title">MV TITLE</div>
+          <div class="date">YouTube</div>
+        </div>
+      </a>
+    </div>
+  </section>
 
-function draw(){
- ctx.clearRect(0,0,canvas.width,canvas.height);
- for(let i=0;i<canvas.width;i+=12){
-  let h=Math.random()*80;
-  ctx.fillStyle="rgba(0,255,200,.6)";
-  ctx.fillRect(i,120-h,8,h);
- }
- requestAnimationFrame(draw);
-}
-draw();
-</script>
+  <section id="live" class="section">
+    <div class="section-head">
+      <h2>LIVE</h2>
+      <div class="sub">Schedule</div>
+    </div>
+
+    <div class="list">
+      <a class="row" href="#">
+        <div class="left">
+          <div class="ttl">2026.04.12 — Event Name</div>
+          <div class="loc">TOKYO / Venue</div>
+        </div>
+        <div class="right">OPEN 18:00 / START 19:00</div>
+      </a>
+      <a class="row" href="#">
+        <div class="left">
+          <div class="ttl">2026.05.03 — Event Name</div>
+          <div class="loc">NAGOYA / Venue</div>
+        </div>
+        <div class="right">Details</div>
+      </a>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="section-head">
+      <h2>ABOUT</h2>
+      <div class="sub">Who we are</div>
+    </div>
+    <p style="max-width:820px; color:var(--muted); line-height:1.95; font-size:14px;">
+      294chの紹介文。2〜4行で“何者か”“何が強いか”“何を届けるか”を固定化すると、
+      RUDEL的に強い公式サイトになります。
+    </p>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="section-head">
+      <h2>CONTACT</h2>
+      <div class="sub">Booking / Inquiries</div>
+    </div>
+
+    <div class="cards">
+      <div class="card" style="grid-column: span 12;">
+        <h3>Contact</h3>
+        <p>フォームを付けるか、メールに集約するかを決めるだけで運用が安定します。</p>
+        <p style="margin-top:10px; font-size:13px;">
+          Mail: <a href="mailto:contact@294ch.example">contact@294ch.example</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">© 294ch</div>
+</footer>
 
 </body>
 </html>
