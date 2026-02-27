@@ -21,7 +21,20 @@ header{position:sticky;top:0;z-index:10;background:rgba(0,0,0,.45);backdrop-filt
 
 nav{display:flex;justify-content:center;gap:40px;align-items:center}
 nav a{display:inline-flex;align-items:center;padding:10px 6px;transition:transform .22s ease, opacity .22s ease, filter .22s ease;transform:translateZ(0);position:relative;z-index:10}
-.nav-sticker{height:90px;width:auto;display:block;filter:drop-shadow(0 20px 40px rgba(0,0,0,.65));transition:transform .22s ease, filter .22s ease}
+.nav-sticker{
+  height:90px;
+  width:auto;
+  display:block;
+  filter:drop-shadow(0 20px 40px rgba(0,0,0,.65));
+  transition:transform .22s ease, filter .22s ease;
+}
+
+/* ★ ABOUTだけ視覚補正（8%拡大） */
+nav a[aria-label="ABOUT"] .nav-sticker{
+  transform:scale(1.08);
+  transform-origin:center;
+}
+
 @media (hover:hover) and (pointer:fine){
   nav:hover a{opacity:.25;filter:brightness(.78)}
   nav a:hover{opacity:1;filter:brightness(1);transform:scale(1.55);z-index:11}
@@ -41,7 +54,6 @@ nav a{display:inline-flex;align-items:center;padding:10px 6px;transition:transfo
 .card{border:1px solid var(--line);background:rgba(0,0,0,.35);backdrop-filter:blur(8px);padding:28px;border-radius:18px}
 footer{border-top:1px solid var(--line);padding:30px 0;font-size:12px;color:var(--muted);text-align:center}
 
-/* ===== SNS icons（ABOUT用） ===== */
 .sns{
   margin-top:18px;
   display:flex;
@@ -89,29 +101,6 @@ footer{border-top:1px solid var(--line);padding:30px 0;font-size:12px;color:var(
     <h2>ABOUT</h2>
     <div class="card">
       Coming soon
-
-      <div class="sns" aria-label="Social links">
-        <!-- X -->
-        <a href="https://x.com/294ch_com" target="_blank" rel="noopener" aria-label="X">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M18.9 2H22l-6.8 7.8L23 22h-6.2l-4.9-7.5L5.8 22H2.7l7.3-8.4L1 2h6.3l4.4 6.7L18.9 2Zm-1.1 18h1.7L6.2 3.9H4.4L17.8 20Z"/>
-          </svg>
-        </a>
-
-        <!-- Instagram -->
-        <a href="https://www.instagram.com/xxxxtestxxxx/" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm-5 4.5A5.5 5.5 0 1 1 6.5 14 5.5 5.5 0 0 1 12 8.5Zm0 2A3.5 3.5 0 1 0 15.5 14 3.5 3.5 0 0 0 12 10.5ZM18 6.7a1.1 1.1 0 1 1-1.1 1.1A1.1 1.1 0 0 1 18 6.7Z"/>
-          </svg>
-        </a>
-
-        <!-- TikTok -->
-        <a href="https://www.tiktok.com/@xxxxtestxxxx" target="_blank" rel="noopener" aria-label="TikTok">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M16.6 2c.2 2.1 1.6 3.9 3.6 4.6V10c-1.4 0-2.7-.4-3.8-1.2V16c0 3.3-2.7 6-6 6s-6-2.7-6-6 2.7-6 6-6c.3 0 .6 0 .9.1V13c-.3-.1-.6-.2-.9-.2-1.6 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3V2h3.2Z"/>
-          </svg>
-        </a>
-      </div>
     </div>
   </section>
 </main>
