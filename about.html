@@ -5,57 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>294. | ABOUT</title>
 <link rel="icon" type="image/png" href="294_logo_White_AI_data_0226-removebg-preview.png">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#000;--fg:#fff;--muted:rgba(255,255,255,.6);--line:rgba(255,255,255,.14);--soft:rgba(255,255,255,.05)}
-body{background:var(--bg);color:var(--fg);font-family:ui-sans-serif,system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif}
-a{color:inherit;text-decoration:none}
-.container{max-width:1120px;margin:0 auto;padding:0 20px}
-header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
-.header-inner{display:flex;justify-content:space-between;align-items:center;min-height:84px}
-.logo{font-weight:800;letter-spacing:.18em;font-size:14px}
-nav{display:flex;gap:18px;align-items:center;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;padding:10px 0}
-nav a{display:inline-flex;align-items:center;opacity:.92;transition:.2s}
-nav a:hover{opacity:1}
-.nav-sticker{height:64px;width:auto;display:block;filter:drop-shadow(0 12px 20px rgba(0,0,0,.45));transform:translateZ(0);transition:transform .18s ease, filter .18s ease}
-nav a[aria-current="page"] .nav-sticker{filter:drop-shadow(0 16px 30px rgba(255,255,255,.08)) drop-shadow(0 14px 26px rgba(0,0,0,.55))}
-@media (hover:hover) and (pointer:fine){
-  nav a:hover .nav-sticker{transform:translateY(-2px) scale(1.10);filter:drop-shadow(0 18px 34px rgba(0,0,0,.62))}
-  nav a:active .nav-sticker{transform:translateY(0) scale(1.05)}
-}
-@media (max-width:520px){
-  .header-inner{min-height:74px}
-  .nav-sticker{height:46px}
-  nav{gap:12px}
-}
-.section{padding:70px 0;border-top:1px solid var(--line)}
-.section h2{font-size:13px;letter-spacing:.25em;margin-bottom:24px}
-.card{border:1px solid var(--line);padding:28px;border-radius:18px}
-footer{border-top:1px solid var(--line);padding:30px 0;font-size:12px;color:var(--muted);text-align:center}
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-<header>
-  <div class="container header-inner">
-    <div class="logo">294CH</div>
-    <nav aria-label="Site navigation">
-      <a href="index.html"><img class="nav-sticker" src="top_touka.png" alt="TOP"></a>
-      <a href="news.html"><img class="nav-sticker" src="news_touka.png" alt="NEWS"></a>
-      <a href="discography.html"><img class="nav-sticker" src="discography_touka.png" alt="DISCOGRAPHY"></a>
-      <a href="about.html" aria-current="page"><img class="nav-sticker" src="about_touka.png" alt="ABOUT"></a>
-      <a href="contact.html"><img class="nav-sticker" src="contact_touka.png" alt="CONTACT"></a>
-    </nav>
-  </div>
-</header>
+<div class="bg-dim">
+  <header>
+    <div class="container header-inner">
+      <div class="logo">294CH</div>
+      <nav aria-label="Site navigation">
+        <a href="index.html" aria-label="TOP"><img class="nav-sticker" src="top_touka.png" alt="TOP"></a>
+        <a href="news.html" aria-label="NEWS"><img class="nav-sticker" src="news_touka.png" alt="NEWS"></a>
+        <a href="discography.html" aria-label="DISCOGRAPHY"><img class="nav-sticker" src="discography_touka.png" alt="DISCOGRAPHY"></a>
+        <a href="about.html" aria-label="ABOUT"><img class="nav-sticker" src="about_touka.png" alt="ABOUT"></a>
+        <a href="contact.html" aria-label="CONTACT"><img class="nav-sticker" src="contact_touka.png" alt="CONTACT"></a>
+      </nav>
+    </div>
+  </header>
 
-<main class="container">
-  <section class="section">
-    <h2>ABOUT</h2>
-    <div class="card">Coming soon</div>
-  </section>
-</main>
+  <main class="container">
+    <section class="section" style="padding-top:120px;">
+      <h2>ABOUT</h2>
+      <div class="card">Coming soon</div>
+    </section>
+  </main>
 
-<footer>© 294ch works</footer>
+  <footer>© 294ch works</footer>
+</div>
 </body>
 </html>
