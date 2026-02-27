@@ -7,6 +7,7 @@
 <title>CONTACT | 294.</title>
 <link rel="icon" type="image/png" href="294_logo_White_AI_data_0226-removebg-preview.png">
 
+<!-- Cloudflare Turnstile -->
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <style>
@@ -41,9 +42,19 @@ nav a{display:inline-flex;align-items:center;padding:10px 6px;transition:transfo
 }
 
 /* contact */
-.hero-mini{padding:70px 0 20px}
-.section{padding:40px 0 80px}
-.section h2{font-size:13px;letter-spacing:.25em;margin-bottom:18px;opacity:.95}
+.hero-mini{padding:70px 0 10px}
+.section{padding:26px 0 90px}
+.section h2{font-size:13px;letter-spacing:.25em;margin-bottom:12px;opacity:.95}
+
+/* 追加：案内文（上部真ん中） */
+.contact-lead{
+  text-align:center;
+  font-size:13px;
+  color:var(--muted);
+  margin:0 0 22px;
+  letter-spacing:.04em;
+}
+
 .form-wrap{display:flex;justify-content:center}
 .form-box{
   width:100%;
@@ -54,17 +65,26 @@ nav a{display:inline-flex;align-items:center;padding:10px 6px;transition:transfo
   padding:34px;
   border-radius:20px;
 }
+
+label{display:block;margin-top:14px;font-size:12px;color:var(--muted);letter-spacing:.08em}
 input,textarea{
   width:100%;
   padding:14px 16px;
-  margin-top:12px;
+  margin-top:10px;
   border-radius:14px;
   border:1px solid rgba(255,255,255,.14);
   background:rgba(255,255,255,.08);
   color:#fff;
   outline:none;
 }
+input:focus,textarea:focus{
+  border-color:rgba(255,255,255,.32);
+  background:rgba(255,255,255,.10);
+}
 textarea{min-height:160px;resize:none}
+
+.turnstile-wrap{margin-top:16px}
+
 button{
   width:100%;
   margin-top:16px;
@@ -105,15 +125,32 @@ footer{border-top:1px solid var(--line);padding:30px 0;font-size:12px;color:var(
   <section class="section">
     <h2>CONTACT</h2>
 
+    <!-- 追加：上部真ん中の案内文 -->
+    <p class="contact-lead">お問い合わせは、下記フォームよりお送りください。</p>
+
     <div class="form-wrap">
       <div class="form-box">
         <form action="https://formspree.io/f/mzdawpqn" method="POST">
-          <input type="text" name="name" placeholder="お名前" required>
-          <input type="text" name="subject" placeholder="件名" required>
-          <textarea name="message" placeholder="内容" required></textarea>
 
-          <!-- Turnstile：ここだけ差し替え -->
-          <div class="cf-turnstile" data-sitekey="0x4AAAAAACjGChsgl1YxsE3E"></div>
+          <!-- Formspreeのオプション（任意・便利） -->
+          <!-- 送信メールの件名を整える -->
+          <input type="hidden" name="_subject" value="[294CH] CONTACT">
+          <!-- 送信後の遷移（このURLは好きに変更OK：例 /contact-thanks.html） -->
+          <input type="hidden" name="_next" value="/contact.html?sent=1">
+
+          <label for="name">お名前</label>
+          <input id="name" type="text" name="name" placeholder="お名前" required autocomplete="name">
+
+          <label for="subject">件名</label>
+          <input id="subject" type="text" name="subject" placeholder="件名" required>
+
+          <label for="message">内容</label>
+          <textarea id="message" name="message" placeholder="内容" required></textarea>
+
+          <!-- Turnstile -->
+          <div class="turnstile-wrap">
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAACjGChsgl1YxsE3E"></div>
+          </div>
 
           <button type="submit">送信</button>
         </form>
@@ -136,6 +173,15 @@ if (nav) {
     if(!nav.contains(e.relatedTarget)) body.classList.remove("nav-hover");
   });
 }
+
+/* 送信後URLに ?sent=1 が付いたら軽く通知（任意） */
+try{
+  const p = new URLSearchParams(location.search);
+  if(p.get("sent")==="1"){
+    // うるさくしたくないのでalertは使わず、titleだけ変える
+    document.title = "SENT | 294.";
+  }
+}catch(e){}
 </script>
 </body>
 </html>
