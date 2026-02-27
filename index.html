@@ -39,6 +39,7 @@ header{
   top:0;
   background:var(--bg);
   border-bottom:1px solid var(--line);
+  z-index:10;
 }
 
 .header-inner{
@@ -54,19 +55,44 @@ header{
   font-size:14px;
 }
 
+/* NAV (画像ボタン化) */
 nav{
   display:flex;
-  gap:18px;
+  gap:14px;
   overflow-x:auto;
   white-space:nowrap;
+  -webkit-overflow-scrolling:touch;
+  align-items:center;
+  padding:6px 0;
 }
 
 nav a{
-  font-size:12px;
-  opacity:.7;
+  display:inline-flex;
+  align-items:center;
+  opacity:.88;
+  transition:.2s;
 }
 
 nav a:hover{opacity:1}
+
+/* 画像の見た目調整 */
+.nav-sticker{
+  height:34px;          /* ← 全体サイズはここで調整 */
+  width:auto;
+  display:block;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,.35));
+  transform: translateZ(0);
+}
+
+nav a:hover .nav-sticker{
+  transform: translateY(-1px);
+}
+
+/* スマホは少し小さく */
+@media (max-width: 520px){
+  .nav-sticker{ height:28px; }
+  nav{ gap:10px; }
+}
 
 /* HERO */
 .hero{
@@ -145,12 +171,24 @@ footer{
 <header>
   <div class="container header-inner">
     <div class="logo">294CH</div>
-    <nav>
-      <a href="#top">TOP</a>
-      <a href="#news">NEWS</a>
-      <a href="#disco">DISCOGRAPHY</a>
-      <a href="#about">ABOUT</a>
-      <a href="#contact">CONTACT</a>
+
+    <!-- ここ：文字→画像に置き換え済み -->
+    <nav aria-label="Site navigation">
+      <a href="#top" aria-label="TOP">
+        <img class="nav-sticker" src="top_touka.png" alt="TOP">
+      </a>
+      <a href="#news" aria-label="NEWS">
+        <img class="nav-sticker" src="news_touka.png" alt="NEWS">
+      </a>
+      <a href="#disco" aria-label="DISCOGRAPHY">
+        <img class="nav-sticker" src="discography_touka.png" alt="DISCOGRAPHY">
+      </a>
+      <a href="#about" aria-label="ABOUT">
+        <img class="nav-sticker" src="about_touka.png" alt="ABOUT">
+      </a>
+      <a href="#contact" aria-label="CONTACT">
+        <img class="nav-sticker" src="contact_touka.png" alt="CONTACT">
+      </a>
     </nav>
   </div>
 </header>
