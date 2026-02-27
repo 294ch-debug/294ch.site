@@ -4,53 +4,126 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DISCOGRAPHY | 294.</title>
+<title>294. | DISCOGRAPHY</title>
 <link rel="icon" type="image/png" href="294_logo_White_AI_data_0226-removebg-preview.png">
-
 <style>
-/* 共通（newsと同一） */
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--fg:#fff;--muted:rgba(255,255,255,.72);--line:rgba(255,255,255,.18);--soft:rgba(255,255,255,.10)}
-body{color:var(--fg);font-family:ui-sans-serif,system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;background:url("bg.png") center/cover no-repeat fixed}
+:root{
+  --fg:#ffffff;
+  --muted:rgba(255,255,255,.7);
+  --line:rgba(255,255,255,.18);
+  --soft:rgba(255,255,255,.08);
+}
+body{
+  color:var(--fg);
+  font-family: ui-sans-serif, system-ui, -apple-system,
+  "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+  background: url("bg.png") center / cover no-repeat fixed;
+}
+.bg-dim{
+  min-height:100vh;
+  background: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.72));
+}
 a{color:inherit;text-decoration:none}
 .container{max-width:1120px;margin:0 auto;padding:0 20px}
-.bg-dim{min-height:100vh;background:linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.78))}
-.page-dim{position:fixed;inset:0;background:rgba(0,0,0,.22);opacity:0;transition:opacity .18s ease;pointer-events:none;z-index:9}
-body.nav-hover .page-dim{opacity:1}
 
-header{position:sticky;top:0;z-index:10;background:rgba(0,0,0,.45);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.header-inner{display:flex;justify-content:space-between;align-items:center;height:110px}
+/* Header */
+header{
+  position:sticky; top:0; z-index:10;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.header-inner{
+  display:flex; justify-content:space-between; align-items:center;
+  height:96px;
+}
 .logo{font-weight:800;letter-spacing:.18em;font-size:14px;opacity:.9}
-nav{display:flex;gap:40px;align-items:center}
-nav a{display:inline-flex;align-items:center;padding:10px 6px;transition:transform .22s ease, opacity .22s ease, filter .22s ease;transform:translateZ(0);position:relative;z-index:10}
-.nav-sticker{height:90px;width:auto;display:block;filter:drop-shadow(0 20px 40px rgba(0,0,0,.65));transition:transform .22s ease, filter .22s ease}
+
+/* NAV */
+nav{display:flex;gap:18px;align-items:center}
+nav a{display:inline-flex;align-items:center; position:relative}
+.nav-sticker{
+  height:78px; width:auto; display:block;
+  filter: drop-shadow(0 12px 22px rgba(0,0,0,.55));
+  transition: transform .18s ease, filter .18s ease, opacity .18s ease;
+  transform: translateZ(0);
+}
 @media (hover:hover) and (pointer:fine){
-  nav:hover a{opacity:.25;filter:brightness(.78)}
-  nav a:hover{opacity:1;filter:brightness(1);transform:scale(1.55);z-index:11}
-  nav a:hover .nav-sticker{filter:drop-shadow(0 28px 55px rgba(0,0,0,.78))}
-  nav a:active{transform:scale(1.42)}
+  nav:hover .nav-sticker{opacity:.55}
+  nav a:hover .nav-sticker{
+    opacity:1;
+    transform: translateY(-4px) scale(1.28);
+    filter: drop-shadow(0 18px 34px rgba(0,0,0,.70));
+    z-index:2;
+  }
 }
 @media (max-width:560px){
-  .header-inner{height:88px}
+  .header-inner{height:86px}
+  nav{gap:12px; justify-content:center; width:100%}
   .logo{display:none}
-  nav{width:100%;justify-content:space-between;gap:10px;overflow:hidden}
-  nav a{padding:8px 0;flex:1 1 20%;justify-content:center;transform:none !important}
-  .nav-sticker{height:56px}
+  .nav-sticker{height:58px}
 }
 
-.hero-mini{padding:90px 0 40px}
-.section{padding:70px 0;border-top:1px solid var(--line)}
-.section h2{font-size:13px;letter-spacing:.25em;margin-bottom:24px;opacity:.95}
-.card{border:1px solid var(--line);background:rgba(0,0,0,.35);backdrop-filter:blur(8px);padding:28px;border-radius:18px}
-.release-links{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
-.button{display:inline-flex;align-items:center;height:40px;padding:0 16px;border:1px solid var(--line);border-radius:999px;font-size:12px;transition:.2s;background:rgba(0,0,0,.25)}
+/* Page */
+.page{
+  padding:64px 0 110px;
+}
+.page-title{
+  font-size:12px;
+  letter-spacing:.38em;
+  opacity:.9;
+  margin:0 0 16px;
+}
+.panel{
+  border:1px solid var(--line);
+  background: rgba(0,0,0,.35);
+  backdrop-filter: blur(10px);
+  border-radius:18px;
+  padding:22px;
+}
+.release{
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.22);
+  border-radius:14px;
+  padding:18px 18px 16px;
+}
+.release-kicker{
+  font-size:12px;
+  letter-spacing:.18em;
+  color:var(--muted);
+  margin-bottom:8px;
+}
+.release-title{
+  font-size:15px;
+  font-weight:700;
+  margin-bottom:6px;
+}
+.release-sub{
+  font-size:13px;
+  color:var(--muted);
+}
+.release-links{
+  margin-top:14px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.button{
+  display:inline-flex;align-items:center;height:40px;padding:0 16px;
+  border:1px solid var(--line);border-radius:999px;font-size:12px;
+  transition:.2s;background: rgba(0,0,0,.25);
+}
 .button:hover{background:var(--soft)}
-footer{border-top:1px solid var(--line);padding:30px 0;font-size:12px;color:var(--muted);text-align:center}
+
+footer{
+  border-top:1px solid var(--line);
+  padding:30px 0;font-size:12px;color:var(--muted);text-align:center;
+}
 </style>
 </head>
 
 <body>
-<div class="page-dim" aria-hidden="true"></div>
 <div class="bg-dim">
 
 <header>
@@ -66,35 +139,24 @@ footer{border-top:1px solid var(--line);padding:30px 0;font-size:12px;color:var(
   </div>
 </header>
 
-<main class="container">
-  <section class="hero-mini"></section>
+<main class="container page">
+  <div class="page-title">DISCOGRAPHY</div>
 
-  <section class="section">
-    <h2>DISCOGRAPHY</h2>
-    <div class="card">
-      <strong>Coming soon</strong>
+  <div class="panel">
+    <div class="release">
+      <div class="release-kicker">2026/xx/xx</div>
+      <div class="release-title">1st Single &quot;xxxx&quot;</div>
+      <div class="release-sub">coming soon</div>
+
       <div class="release-links">
-        <a class="button" href="https://open.spotify.com/" target="_blank" rel="noreferrer">Spotify</a>
-        <a class="button" href="https://music.apple.com/" target="_blank" rel="noreferrer">Apple Music</a>
+        <a class="button" href="https://open.spotify.com/" target="_blank" rel="noopener">Spotify</a>
+        <a class="button" href="https://music.apple.com/" target="_blank" rel="noopener">Apple Music</a>
       </div>
     </div>
-  </section>
+  </div>
 </main>
 
 <footer>© 294ch works</footer>
 </div>
-
-<script>
-const body = document.body;
-const nav = document.querySelector("header nav");
-if (nav) {
-  nav.addEventListener("mouseenter", ()=> body.classList.add("nav-hover"));
-  nav.addEventListener("mouseleave", ()=> body.classList.remove("nav-hover"));
-  nav.addEventListener("focusin", ()=> body.classList.add("nav-hover"));
-  nav.addEventListener("focusout", (e)=>{
-    if(!nav.contains(e.relatedTarget)) body.classList.remove("nav-hover");
-  });
-}
-</script>
 </body>
 </html>
