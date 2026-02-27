@@ -82,6 +82,7 @@ nav a:hover{opacity:1}
   max-width:760px;
   height:auto;
   display:block;
+  filter:url(#liquid);
 }
 
 /* Section */
@@ -137,6 +138,21 @@ footer{
 
 <body>
 
+<!-- SVG液体フィルター -->
+<svg width="0" height="0" aria-hidden="true">
+  <filter id="liquid">
+    <feTurbulence id="turb"
+      type="turbulence"
+      baseFrequency="0.0025"
+      numOctaves="2"
+      result="t"/>
+    <feDisplacementMap id="disp"
+      in="SourceGraphic"
+      in2="t"
+      scale="6"/>
+  </filter>
+</svg>
+
 <header>
   <div class="container header-inner">
     <div class="logo">294CH</div>
@@ -152,22 +168,17 @@ footer{
 
 <main id="top" class="container">
 
-  <!-- HERO -->
   <section class="hero">
     <h1 class="hero-logo">
       <img src="294_logo_White_AI_data_0226-removebg-preview.png" alt="294.">
     </h1>
   </section>
 
-  <!-- NEWS -->
   <section id="news" class="section">
     <h2>NEWS</h2>
-    <div class="card">
-      Coming soon
-    </div>
+    <div class="card">Coming soon</div>
   </section>
 
-  <!-- DISCOGRAPHY -->
   <section id="disco" class="section">
     <h2>DISCOGRAPHY</h2>
     <div class="card">
@@ -179,21 +190,15 @@ footer{
     </div>
   </section>
 
-  <!-- ABOUT -->
   <section id="about" class="section">
     <h2>ABOUT</h2>
-    <div class="card">
-      Coming soon
-    </div>
+    <div class="card">Coming soon</div>
   </section>
 
-  <!-- CONTACT -->
   <section id="contact" class="section">
     <h2>CONTACT</h2>
     <div class="card">
-      <p>
-        294.に関するお問い合わせは、下記フォームよりお送りください。
-      </p>
+      <p>294.に関するお問い合わせは、下記フォームよりお送りください。</p>
       <p style="margin-top:12px;">
         Mail:
         <a href="mailto:contact@294ch.com">contact@294ch.com</a>
@@ -204,8 +209,43 @@ footer{
 </main>
 
 <footer>
-  © 294.
+  © 294ch works
 </footer>
+
+<script>
+const logo = document.querySelector(".hero-logo img");
+const turb = document.querySelector("#turb");
+const disp = document.querySelector("#disp");
+
+let ticking = false;
+
+function onScroll(){
+  if(ticking) return;
+  ticking = true;
+
+  requestAnimationFrame(() => {
+    const r = logo.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const center = (r.top + r.bottom) / 2;
+
+    let p = 1 - Math.min(1, Math.max(0, center / vh));
+
+    const scale = 4 + p * 10;
+    const freq  = 0.0025 + p * 0.002;
+
+    disp.setAttribute("scale", scale.toFixed(2));
+    turb.setAttribute("baseFrequency", freq.toFixed(5));
+
+    ticking = false;
+  });
+}
+
+window.addEventListener("scroll", onScroll, { passive:true });
+onScroll();
+</script>
+
+</body>
+</html>
 
 </body>
 </html>
