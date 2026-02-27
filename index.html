@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!doctype html>
 <html lang="ja">
 <head>
@@ -10,247 +11,165 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --fg:#ffffff;
-  --muted:rgba(255,255,255,.7);
+  --muted:rgba(255,255,255,.72);
   --line:rgba(255,255,255,.18);
-  --soft:rgba(255,255,255,.08);
+  --soft:rgba(255,255,255,.10);
 }
 
 body{
   color:var(--fg);
   font-family: ui-sans-serif, system-ui, -apple-system,
   "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
-  background: url("bg.png") center / cover no-repeat fixed;
-}
-
-.bg-dim{
-  min-height:100vh;
-  background: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.72));
+  background:url("bg.png") center / cover no-repeat fixed;
 }
 
 a{color:inherit;text-decoration:none}
 .container{max-width:1120px;margin:0 auto;padding:0 20px}
 
-/* ===== Header（大きくする） ===== */
+.bg-dim{
+  min-height:100vh;
+  background:linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.78));
+}
+
+/* ====== PAGE DIM OVERLAY（nav hoverでページ全体を暗く） ====== */
+.page-dim{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.22);
+  opacity:0;
+  transition:opacity .18s ease;
+  pointer-events:none;
+  z-index:9; /* header(10)より下 */
+}
+body.nav-hover .page-dim{opacity:1}
+
+/* ====== HEADER（共通） ====== */
 header{
-  position:sticky; top:0; z-index:10;
-  background: rgba(0,0,0,.45);
-  backdrop-filter: blur(10px);
+  position:sticky;top:0;z-index:10;
+  background:rgba(0,0,0,.45);
+  backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);
 }
-
-/* 高さを大きく＆余白追加 */
 .header-inner{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  height:120px;           /* ← 82px → 120px */
-  padding: 8px 0;         /* ← 帯の厚み */
-  gap:16px;
+  display:flex;justify-content:space-between;align-items:center;
+  height:110px;
 }
-
-/* ロゴも少し大きく */
 .logo{
-  font-weight:800;
-  letter-spacing:.18em;
-  font-size:18px;         /* ← 14px → 18px */
-  opacity:.95;
-  min-width: 90px;        /* 左の“芯”を作る（左右均等化に効く） */
+  font-weight:800;letter-spacing:.18em;font-size:14px;opacity:.9;
 }
 
-/* ===== NAV（中央寄せ・過剰ホバー・他を暗く） ===== */
+/* ====== NAV（共通） ====== */
 nav{
   display:flex;
-  gap:18px;
+  gap:40px;
   align-items:center;
-  justify-content:center; /* 中央に寄せる */
-  flex: 1;                /* 余白を取り、中央配置を安定させる */
 }
-
-/* リンク領域を少し広げる（押しやすく） */
 nav a{
   display:inline-flex;
   align-items:center;
-  padding: 10px 6px;
-  border-radius: 14px;
+  padding:10px 6px;
+  transition: transform .22s ease, opacity .22s ease, filter .22s ease;
+  transform:translateZ(0);
   position:relative;
+  z-index:10;
 }
-
-/* ステッカー自体のサイズをアップ */
 .nav-sticker{
-  height:84px;            /* ← 62px → 84px */
+  height:90px;
   width:auto;
   display:block;
-  filter: drop-shadow(0 14px 26px rgba(0,0,0,.55));
-  transition:
-    transform .18s ease,
-    filter .18s ease,
-    opacity .18s ease;
-  transform: translateZ(0);
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,.65));
+  transition: transform .22s ease, filter .22s ease;
 }
 
-/* 右側のバランス用（見えないダミー） */
-.header-spacer{
-  min-width: 90px;        /* .logoと同じ幅にして左右均等 */
+/* PC hover（過剰拡大＋他を薄く） */
+@media (hover:hover) and (pointer:fine){
+  nav:hover a{opacity:.25;filter:brightness(.78)}
+  nav a:hover{opacity:1;filter:brightness(1);transform:scale(1.55);z-index:11}
+  nav a:hover .nav-sticker{filter: drop-shadow(0 28px 55px rgba(0,0,0,.78))}
+  nav a:active{transform:scale(1.42)}
 }
 
-/* スマホ：均等に中央寄せ + サイズ調整 */
+/* スマホ：はみ出し防止＆均等配置 */
 @media (max-width:560px){
-  .header-inner{
-    height:104px;         /* スマホでも太め */
-    padding: 10px 0;
-  }
-  .logo{ display:none; }
-  .header-spacer{ display:none; }
+  .header-inner{height:88px}
+  .logo{display:none}
   nav{
     width:100%;
+    justify-content:space-between;
+    gap:10px;
+    overflow:hidden;
+  }
+  nav a{
+    padding:8px 0;
+    flex:1 1 20%;
     justify-content:center;
-    gap:12px;
+    transform:none !important;
   }
-  .nav-sticker{ height:64px; }  /* スマホは過剰になりすぎない程度 */
+  .nav-sticker{height:56px}
 }
 
-/* PCホバー：過剰拡大 + それ以外を暗く */
-@media (hover:hover) and (pointer:fine){
-
-  /* ホバー時、当たってない他リンクを暗くする（nav全体がhover中だけ） */
-  nav:hover a{ opacity:.42; }
-  nav:hover a:hover{ opacity:1; }
-
-  /* 過剰拡大（ガッツリ） */
-  nav a:hover .nav-sticker{
-    transform: translateY(-6px) scale(1.35) rotate(-2deg);
-    filter: drop-shadow(0 26px 44px rgba(0,0,0,.70));
-  }
-
-  /* ホバー中、拡大した以外を“少しぼかす”と暗さが自然に見える */
-  nav:hover a:not(:hover) .nav-sticker{
-    filter: drop-shadow(0 10px 18px rgba(0,0,0,.45)) blur(.35px);
-  }
-
-  /* クリック時の押し込み */
-  nav a:active .nav-sticker{
-    transform: translateY(-2px) scale(1.25);
-  }
-}
-
-/* ===== HERO（あなたのロゴはここ、既存のままでOK） ===== */
+/* ====== HERO / SECTION ====== */
 .hero{
   padding:160px 0 120px;
-  display:flex; flex-direction:column; align-items:center; text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
 }
 .hero-logo{
   width:100%;
   max-width:980px;
-  position:relative;
-  --glitch-amp: 10px;
-}
-.hero-logo::before{
-  content:"";
-  position:absolute;
-  inset:-2%;
-  background:url("294_logo_White_AI_data_0226-removebg-preview.png") center/contain no-repeat;
-  filter: blur(12px) saturate(1.18) contrast(1.05);
-  opacity:.22;
-  transform: translateY(10px);
-  pointer-events:none;
-}
-.hero-logo::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:url("294_logo_White_AI_data_0226-removebg-preview.png") center/contain no-repeat;
-  opacity:0;
-  mix-blend-mode: screen;
-  pointer-events:none;
-  z-index:2;
 }
 .hero-logo img{
   width:100%;
   height:auto;
   display:block;
-  position:relative;
-  z-index:1;
   animation: floatLogo 6s ease-in-out infinite;
   filter:
     drop-shadow(0 30px 60px rgba(0,0,0,.60))
-    drop-shadow(0 0 42px rgba(120,160,255,.30))
-    contrast(1.06)
-    saturate(1.04);
+    drop-shadow(0 0 42px rgba(120,160,255,.30));
   transform: translateZ(0);
-  backface-visibility:hidden;
 }
 @keyframes floatLogo{
-  0%{ transform: translateY(0px); }
-  50%{ transform: translateY(-14px); }
-  100%{ transform: translateY(0px); }
-}
-.hero-logo.is-glitch img{
-  animation: floatLogo 6s ease-in-out infinite, glitchJitter 160ms steps(2,end) 1;
-}
-.hero-logo.is-glitch::after{
-  opacity:.35;
-  animation: glitchSlice 180ms steps(2,end) 1;
-  filter:
-    drop-shadow(0 0 26px rgba(255,120,180,.20))
-    drop-shadow(0 0 26px rgba(120,200,255,.18));
-}
-@keyframes glitchJitter{
-  0%{ transform: translateY(0) translateX(0); }
-  25%{ transform: translateY(-1px) translateX(calc(var(--glitch-amp) * -0.35)); }
-  55%{ transform: translateY(1px) translateX(calc(var(--glitch-amp) * 0.45)); }
-  100%{ transform: translateY(0) translateX(0); }
-}
-@keyframes glitchSlice{
-  0%{ clip-path: inset(0 0 82% 0); transform: translateX(calc(var(--glitch-amp) * -1)); }
-  33%{ clip-path: inset(34% 0 44% 0); transform: translateX(calc(var(--glitch-amp) * 0.8)); }
-  66%{ clip-path: inset(70% 0 10% 0); transform: translateX(calc(var(--glitch-amp) * -0.6)); }
-  100%{ clip-path: inset(0 0 0 0); transform: translateX(0); }
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-14px)}
+  100%{transform:translateY(0)}
 }
 @media (prefers-reduced-motion: reduce){
-  .hero-logo img{ animation:none; }
-  .hero-logo::after{ display:none; }
+  .hero-logo img{animation:none}
 }
 @media (max-width:560px){
-  .hero{ padding:140px 0 90px; }
-  .hero-logo{ max-width:92vw; --glitch-amp: 8px; }
-  .hero-logo::before{
-    filter: blur(10px) saturate(1.16) contrast(1.04);
-    opacity:.20;
-    transform: translateY(8px);
-  }
-  .hero-logo img{
-    filter:
-      drop-shadow(0 24px 50px rgba(0,0,0,.60))
-      drop-shadow(0 0 34px rgba(120,160,255,.28))
-      contrast(1.05)
-      saturate(1.03);
-  }
+  .hero{padding:140px 0 90px}
+  .hero-logo{max-width:92vw}
 }
 
-/* Section */
+/* content */
 .section{padding:70px 0;border-top:1px solid var(--line)}
 .section h2{font-size:13px;letter-spacing:.25em;margin-bottom:24px;opacity:.95}
 .card{
   border:1px solid var(--line);
-  background: rgba(0,0,0,.35);
-  backdrop-filter: blur(8px);
+  background:rgba(0,0,0,.35);
+  backdrop-filter:blur(8px);
   padding:28px;
   border-radius:18px;
 }
 footer{
   border-top:1px solid var(--line);
-  padding:30px 0;font-size:12px;color:var(--muted);text-align:center;
+  padding:30px 0;
+  font-size:12px;
+  color:var(--muted);
+  text-align:center;
 }
 </style>
 </head>
 
 <body>
-<div class="bg-dim">
+<div class="page-dim" aria-hidden="true"></div>
 
+<div class="bg-dim">
 <header>
   <div class="container header-inner">
     <div class="logo">294CH</div>
-
     <nav aria-label="Site navigation">
       <a href="index.html" aria-label="TOP"><img class="nav-sticker" src="top_touka.png" alt="TOP"></a>
       <a href="news.html" aria-label="NEWS"><img class="nav-sticker" src="news_touka.png" alt="NEWS"></a>
@@ -258,14 +177,12 @@ footer{
       <a href="about.html" aria-label="ABOUT"><img class="nav-sticker" src="about_touka.png" alt="ABOUT"></a>
       <a href="contact.html" aria-label="CONTACT"><img class="nav-sticker" src="contact_touka.png" alt="CONTACT"></a>
     </nav>
-
-    <div class="header-spacer" aria-hidden="true"></div>
   </div>
 </header>
 
 <main class="container">
   <section class="hero">
-    <h1 class="hero-logo" id="heroLogo">
+    <h1 class="hero-logo">
       <img src="294_logo_White_AI_data_0226-removebg-preview.png" alt="294.">
     </h1>
   </section>
@@ -280,27 +197,16 @@ footer{
 </div>
 
 <script>
-(() => {
-  const el = document.getElementById("heroLogo");
-  if (!el) return;
-
-  function rand(min, max){ return Math.random() * (max - min) + min; }
-
-  function triggerGlitch(){
-    el.classList.add("is-glitch");
-    const duration = Math.floor(rand(120, 220));
-    setTimeout(() => el.classList.remove("is-glitch"), duration);
-    schedule();
-  }
-
-  function schedule(){
-    const next = Math.floor(rand(3000, 9000));
-    setTimeout(triggerGlitch, next);
-  }
-
-  schedule();
-})();
+const body = document.body;
+const nav = document.querySelector("header nav");
+if (nav) {
+  nav.addEventListener("mouseenter", ()=> body.classList.add("nav-hover"));
+  nav.addEventListener("mouseleave", ()=> body.classList.remove("nav-hover"));
+  nav.addEventListener("focusin", ()=> body.classList.add("nav-hover"));
+  nav.addEventListener("focusout", (e)=>{
+    if(!nav.contains(e.relatedTarget)) body.classList.remove("nav-hover");
+  });
+}
 </script>
-
 </body>
 </html>
