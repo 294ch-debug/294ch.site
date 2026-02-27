@@ -1,4 +1,3 @@
-<!-- news.html -->
 <!doctype html>
 <html lang="ja">
 <head>
@@ -8,7 +7,6 @@
 <link rel="icon" type="image/png" href="294_logo_White_AI_data_0226-removebg-preview.png">
 
 <style>
-/* ===== 共通（indexと同じ） ===== */
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --fg:#ffffff;
@@ -16,28 +14,72 @@
   --line:rgba(255,255,255,.18);
   --soft:rgba(255,255,255,.10);
 }
+
 body{
   color:var(--fg);
-  font-family: ui-sans-serif, system-ui, -apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP", sans-serif;
+  font-family: ui-sans-serif, system-ui, -apple-system,
+  "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
   background:url("bg.png") center / cover no-repeat fixed;
 }
+
 a{color:inherit;text-decoration:none}
 .container{max-width:1120px;margin:0 auto;padding:0 20px}
-.bg-dim{min-height:100vh;background:linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.78))}
-.page-dim{position:fixed;inset:0;background:rgba(0,0,0,.22);opacity:0;transition:opacity .18s ease;pointer-events:none;z-index:9}
+
+.bg-dim{
+  min-height:100vh;
+  background:linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.78));
+}
+
+.page-dim{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.22);
+  opacity:0;
+  transition:opacity .18s ease;
+  pointer-events:none;
+  z-index:9;
+}
 body.nav-hover .page-dim{opacity:1}
 
-header{position:sticky;top:0;z-index:10;background:rgba(0,0,0,.45);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.header-inner{display:flex;justify-content:space-between;align-items:center;height:110px}
-.logo{font-weight:800;letter-spacing:.18em;font-size:14px;opacity:.9}
+header{
+  position:sticky;top:0;z-index:10;
+  background:rgba(0,0,0,.45);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.header-inner{
+  display:flex;justify-content:space-between;align-items:center;
+  height:110px;
+}
+.logo{
+  font-weight:800;letter-spacing:.18em;font-size:14px;opacity:.9;
+}
 
-nav{display:flex;gap:40px;align-items:center}
-nav a{display:inline-flex;align-items:center;padding:10px 6px;transition:transform .22s ease, opacity .22s ease, filter .22s ease;transform:translateZ(0);position:relative;z-index:10}
-.nav-sticker{height:90px;width:auto;display:block;filter:drop-shadow(0 20px 40px rgba(0,0,0,.65));transition:transform .22s ease, filter .22s ease}
+nav{
+  display:flex;
+  gap:40px;
+  align-items:center;
+}
+nav a{
+  display:inline-flex;
+  align-items:center;
+  padding:10px 6px;
+  transition: transform .22s ease, opacity .22s ease, filter .22s ease;
+  transform:translateZ(0);
+  position:relative;
+  z-index:10;
+}
+.nav-sticker{
+  height:90px;
+  width:auto;
+  display:block;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,.65));
+  transition: transform .22s ease, filter .22s ease;
+}
 @media (hover:hover) and (pointer:fine){
   nav:hover a{opacity:.25;filter:brightness(.78)}
   nav a:hover{opacity:1;filter:brightness(1);transform:scale(1.55);z-index:11}
-  nav a:hover .nav-sticker{filter:drop-shadow(0 28px 55px rgba(0,0,0,.78))}
+  nav a:hover .nav-sticker{filter: drop-shadow(0 28px 55px rgba(0,0,0,.78))}
   nav a:active{transform:scale(1.42)}
 }
 @media (max-width:560px){
@@ -48,6 +90,7 @@ nav a{display:inline-flex;align-items:center;padding:10px 6px;transition:transfo
   .nav-sticker{height:56px}
 }
 
+/* page content */
 .hero-mini{padding:90px 0 40px}
 .section{padding:70px 0;border-top:1px solid var(--line)}
 .section h2{font-size:13px;letter-spacing:.25em;margin-bottom:24px;opacity:.95}
@@ -70,14 +113,20 @@ nav a{display:inline-flex;align-items:center;padding:10px 6px;transition:transfo
 .news-title{margin-top:8px;font-size:14px;font-weight:700}
 .news-sub{margin-top:8px;color:var(--muted);font-size:13px}
 
-footer{border-top:1px solid var(--line);padding:30px 0;font-size:12px;color:var(--muted);text-align:center}
+footer{
+  border-top:1px solid var(--line);
+  padding:30px 0;
+  font-size:12px;
+  color:var(--muted);
+  text-align:center;
+}
 </style>
 </head>
 
 <body>
 <div class="page-dim" aria-hidden="true"></div>
-<div class="bg-dim">
 
+<div class="bg-dim">
 <header>
   <div class="container header-inner">
     <div class="logo">294CH</div>
