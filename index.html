@@ -77,12 +77,20 @@ nav a:hover{opacity:1}
   text-align:center;
 }
 
-.hero-logo img{
+/* ここが追加/変更：動画ロゴ用 */
+.hero-logo{
   width:100%;
   max-width:760px;
+}
+
+.hero-logo video{
+  width:100%;
   height:auto;
   display:block;
-  filter:url(#liquid);
+  /* iPhone対策：不要なUIを極力出さない */
+  outline:none;
+  border:none;
+  background:transparent;
 }
 
 /* Section */
@@ -138,7 +146,7 @@ footer{
 
 <body>
 
-<!-- SVG液体フィルター -->
+<!-- SVG液体フィルター（残してOK。使わないなら消してもOK） -->
 <svg width="0" height="0" aria-hidden="true">
   <filter id="liquid">
     <feTurbulence id="turb"
@@ -168,9 +176,17 @@ footer{
 
 <main id="top" class="container">
 
+  <!-- HERO（ここが差し替え） -->
   <section class="hero">
     <h1 class="hero-logo">
-      <img src="294_logo_White_AI_data_0226-removebg-preview.png" alt="294.">
+      <video
+        src="294_logo_mask.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+      ></video>
     </h1>
   </section>
 
@@ -213,39 +229,43 @@ footer{
 </footer>
 
 <script>
-const logo = document.querySelector(".hero-logo img");
+/*
+  ※動画方式にしたので、下のスクロール揺れJSは実質不要です。
+  もし残すなら、logoを video に変えた版にしてあります。
+  ただし、動画自体が動くなら、このJSは消してOKです。
+*/
+const logo = document.querySelector(".hero-logo video");
 const turb = document.querySelector("#turb");
 const disp = document.querySelector("#disp");
 
-let ticking = false;
+if (logo && turb && disp) {
+  let ticking = false;
 
-function onScroll(){
-  if(ticking) return;
-  ticking = true;
+  function onScroll(){
+    if(ticking) return;
+    ticking = true;
 
-  requestAnimationFrame(() => {
-    const r = logo.getBoundingClientRect();
-    const vh = window.innerHeight;
-    const center = (r.top + r.bottom) / 2;
+    requestAnimationFrame(() => {
+      const r = logo.getBoundingClientRect();
+      const vh = window.innerHeight || 1;
+      const center = (r.top + r.bottom) / 2;
 
-    let p = 1 - Math.min(1, Math.max(0, center / vh));
+      let p = 1 - Math.min(1, Math.max(0, center / vh));
 
-    const scale = 4 + p * 10;
-    const freq  = 0.0025 + p * 0.002;
+      const scale = 4 + p * 10;
+      const freq  = 0.0025 + p * 0.002;
 
-    disp.setAttribute("scale", scale.toFixed(2));
-    turb.setAttribute("baseFrequency", freq.toFixed(5));
+      disp.setAttribute("scale", scale.toFixed(2));
+      turb.setAttribute("baseFrequency", freq.toFixed(5));
 
-    ticking = false;
-  });
+      ticking = false;
+    });
+  }
+
+  window.addEventListener("scroll", onScroll, { passive:true });
+  onScroll();
 }
-
-window.addEventListener("scroll", onScroll, { passive:true });
-onScroll();
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
