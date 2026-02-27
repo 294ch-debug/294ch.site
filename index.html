@@ -76,14 +76,15 @@ nav a{display:inline-flex;align-items:center}
 .hero-logo{
   width:100%;
   max-width:980px;
-  position:relative; /* 擬似レイヤー用 */
+  position:relative;
+  --glitch-amp: 10px;   /* グリッチのズレ量（弱め推奨 6〜14px） */
 }
 
-/* 擬似ハイレゾ：同じ画像を背面に薄くぼかして重ねる */
+/* 擬似ハイレゾ：背面ぼかし */
 .hero-logo::before{
   content:"";
   position:absolute;
-  inset:-2%; /* 少しだけ外側に広げる */
+  inset:-2%;
   background:url("294_logo_White_AI_data_0226-removebg-preview.png") center/contain no-repeat;
   filter: blur(12px) saturate(1.18) contrast(1.05);
   opacity:.22;
@@ -91,7 +92,19 @@ nav a{display:inline-flex;align-items:center}
   pointer-events:none;
 }
 
-/* ロゴ画像（微グロー＋浮遊＋軽い“くっきり”） */
+/* グリッチ用レイヤー：同じ画像をもう一枚重ねる（普段は透明） */
+.hero-logo::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url("294_logo_White_AI_data_0226-removebg-preview.png") center/contain no-repeat;
+  opacity:0;
+  mix-blend-mode: screen;
+  pointer-events:none;
+  z-index:2;
+}
+
+/* ロゴ本体 */
 .hero-logo img{
   width:100%;
   height:auto;
@@ -101,7 +114,6 @@ nav a{display:inline-flex;align-items:center}
 
   animation: floatLogo 6s ease-in-out infinite;
 
-  /* 誤魔化し：演出としての発光＋少しコントラスト */
   filter:
     drop-shadow(0 30px 60px rgba(0,0,0,.60))
     drop-shadow(0 0 42px rgba(120,160,255,.30))
@@ -109,30 +121,71 @@ nav a{display:inline-flex;align-items:center}
     saturate(1.04);
 
   transform: translateZ(0);
-  backface-visibility: hidden;
+  backface-visibility:hidden;
 }
 
+/* 浮遊 */
 @keyframes floatLogo{
-  0%   { transform: translateY(0px); }
-  50%  { transform: translateY(-14px); }
-  100% { transform: translateY(0px); }
+  0%{ transform: translateY(0px); }
+  50%{ transform: translateY(-14px); }
+  100%{ transform: translateY(0px); }
+}
+
+/* ランダムグリッチを付与するときにだけ付くクラス */
+.hero-logo.is-glitch img{
+  animation: floatLogo 6s ease-in-out infinite, glitchJitter 160ms steps(2,end) 1;
+}
+
+.hero-logo.is-glitch::after{
+  opacity:.35; /* 一瞬だけ見せる */
+  animation: glitchSlice 180ms steps(2,end) 1;
+  filter:
+    drop-shadow(0 0 26px rgba(255,120,180,.20))
+    drop-shadow(0 0 26px rgba(120,200,255,.18));
+}
+
+/* 本体をちょっとだけブレさせる */
+@keyframes glitchJitter{
+  0%{ transform: translateY(0) translateX(0); }
+  25%{ transform: translateY(-1px) translateX(calc(var(--glitch-amp) * -0.35)); }
+  55%{ transform: translateY(1px) translateX(calc(var(--glitch-amp) * 0.45)); }
+  100%{ transform: translateY(0) translateX(0); }
+}
+
+/* 疑似スキャンライン：clip-pathで分断して横ズレ */
+@keyframes glitchSlice{
+  0%{
+    clip-path: inset(0 0 82% 0);
+    transform: translateX(calc(var(--glitch-amp) * -1));
+  }
+  33%{
+    clip-path: inset(34% 0 44% 0);
+    transform: translateX(calc(var(--glitch-amp) * 0.8));
+  }
+  66%{
+    clip-path: inset(70% 0 10% 0);
+    transform: translateX(calc(var(--glitch-amp) * -0.6));
+  }
+  100%{
+    clip-path: inset(0 0 0 0);
+    transform: translateX(0);
+  }
 }
 
 /* 動きが苦手な環境では停止 */
 @media (prefers-reduced-motion: reduce){
   .hero-logo img{ animation:none; }
+  .hero-logo::after{ display:none; }
 }
 
 @media (max-width:560px){
   .hero{ padding:140px 0 90px; }
-  .hero-logo{ max-width:92vw; }
-
+  .hero-logo{ max-width:92vw; --glitch-amp: 8px; }
   .hero-logo::before{
     filter: blur(10px) saturate(1.16) contrast(1.04);
     opacity:.20;
     transform: translateY(8px);
   }
-
   .hero-logo img{
     filter:
       drop-shadow(0 24px 50px rgba(0,0,0,.60))
@@ -177,7 +230,7 @@ footer{
 
 <main class="container">
   <section class="hero">
-    <h1 class="hero-logo">
+    <h1 class="hero-logo" id="heroLogo">
       <img src="294_logo_White_AI_data_0226-removebg-preview.png" alt="294.">
     </h1>
   </section>
@@ -190,5 +243,33 @@ footer{
 
 <footer>© 294ch works</footer>
 </div>
+
+<script>
+(() => {
+  const el = document.getElementById("heroLogo");
+  if (!el) return;
+
+  function rand(min, max){ return Math.random() * (max - min) + min; }
+
+  function triggerGlitch(){
+    // たまにだけ発火（3〜9秒間隔）
+    el.classList.add("is-glitch");
+
+    // 120〜220msで解除
+    const duration = Math.floor(rand(120, 220));
+    setTimeout(() => el.classList.remove("is-glitch"), duration);
+
+    schedule();
+  }
+
+  function schedule(){
+    const next = Math.floor(rand(3000, 9000));
+    setTimeout(triggerGlitch, next);
+  }
+
+  schedule();
+})();
+</script>
+
 </body>
 </html>
