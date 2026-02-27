@@ -51,7 +51,7 @@ header{
 }
 .header-inner{
   display:flex;
-  justify-content:center; /* ★統一：中央固定 */
+  justify-content:center;
   align-items:center;
   height:110px;
 }
@@ -59,7 +59,7 @@ header{
 /* ====== NAV（共通） ====== */
 nav{
   display:flex;
-  justify-content:center; /* ★統一：中央固定 */
+  justify-content:center;
   gap:40px;
   align-items:center;
 }
@@ -73,7 +73,7 @@ nav a{
   z-index:10;
 }
 .nav-sticker{
-  height:90px; /* ★統一 */
+  height:90px;
   width:auto;
   display:block;
   filter: drop-shadow(0 20px 40px rgba(0,0,0,.65));
@@ -88,7 +88,7 @@ nav a{
   nav a:active{transform:scale(1.42)}
 }
 
-/* スマホ：中央固定（★統一） */
+/* スマホ：中央固定 */
 @media (max-width:560px){
   .header-inner{height:88px}
   nav{
@@ -158,6 +158,34 @@ footer{
   color:var(--muted);
   text-align:center;
 }
+
+/* ===== TOPのNEWSティザー（追加） ===== */
+.news-teaser{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.news-teaser a{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  padding:14px 16px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:rgba(0,0,0,.28);
+  transition:transform .18s ease, background .18s ease, opacity .18s ease;
+}
+.news-teaser a:hover{transform:scale(1.01); background:rgba(0,0,0,.33)}
+.news-teaser .date{
+  font-size:12px;
+  color:var(--muted);
+  letter-spacing:.12em;
+  white-space:nowrap;
+}
+.news-teaser .title{
+  font-size:14px;
+  font-weight:700;
+}
 </style>
 </head>
 
@@ -187,6 +215,24 @@ footer{
   <section class="section">
     <h2>TOP</h2>
     <div class="card">Coming soon</div>
+  </section>
+
+  <!-- ★追加：TOPにNEWSタブ（タイトルだけ） -->
+  <section class="section">
+    <h2>NEWS</h2>
+    <div class="card">
+      <div class="news-teaser">
+        <a href="news.html#news-1" aria-label="NEWS: coming soon">
+          <span class="date">2026/xx/xx</span>
+          <span class="title">coming soon</span>
+        </a>
+
+        <a href="news.html#news-2" aria-label="NEWS: 1st Single &quot;xxxx&quot;">
+          <span class="date">2026/xx/xx</span>
+          <span class="title">1st Single &quot;xxxx&quot;</span>
+        </a>
+      </div>
+    </div>
   </section>
 </main>
 
