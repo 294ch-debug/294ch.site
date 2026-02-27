@@ -4,8 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>294. | Official Website</title>
-
-<!-- faviconはPNGに戻す -->
 <link rel="icon" type="image/png" href="294_logo_White_AI_data_0226-removebg-preview.png">
 
 <style>
@@ -70,10 +68,22 @@ nav a{display:inline-flex;align-items:center}
 
 /* HERO */
 .hero{
-  padding:170px 0 120px;
+  padding:160px 0 120px;
   display:flex; flex-direction:column; align-items:center; text-align:center;
 }
-.hero-logo{width:100%;max-width:820px}
+
+/* ロゴを大きく：ここが調整ポイント */
+.hero-logo{
+  width:100%;
+  max-width:980px;      /* ← 820px → 980px */
+}
+
+@media (max-width:560px){
+  .hero{ padding:140px 0 90px; }
+  .hero-logo{ max-width:92vw; } /* スマホは画面幅に寄せる */
+}
+
+/* video */
 .hero-logo video{
   width:100%;
   height:auto;
@@ -105,11 +115,11 @@ footer{
   <div class="container header-inner">
     <div class="logo">294CH</div>
     <nav aria-label="Site navigation">
-      <a href="index.html"><img class="nav-sticker" src="top_touka.png" alt="TOP"></a>
-      <a href="news.html"><img class="nav-sticker" src="news_touka.png" alt="NEWS"></a>
-      <a href="discography.html"><img class="nav-sticker" src="discography_touka.png" alt="DISCOGRAPHY"></a>
-      <a href="about.html"><img class="nav-sticker" src="about_touka.png" alt="ABOUT"></a>
-      <a href="contact.html"><img class="nav-sticker" src="contact_touka.png" alt="CONTACT"></a>
+      <a href="index.html" aria-label="TOP"><img class="nav-sticker" src="top_touka.png" alt="TOP"></a>
+      <a href="news.html" aria-label="NEWS"><img class="nav-sticker" src="news_touka.png" alt="NEWS"></a>
+      <a href="discography.html" aria-label="DISCOGRAPHY"><img class="nav-sticker" src="discography_touka.png" alt="DISCOGRAPHY"></a>
+      <a href="about.html" aria-label="ABOUT"><img class="nav-sticker" src="about_touka.png" alt="ABOUT"></a>
+      <a href="contact.html" aria-label="CONTACT"><img class="nav-sticker" src="contact_touka.png" alt="CONTACT"></a>
     </nav>
   </div>
 </header>
@@ -118,7 +128,10 @@ footer{
   <section class="hero">
     <h1 class="hero-logo">
       <video autoplay muted loop playsinline preload="auto">
-        <source src="294_logo_mask_v7.mov" type="video/quicktime">
+        <!-- Chrome/Edge/Firefox：透過OK -->
+        <source src="294_logo_mask_v7_pingpong_alpha.webm" type="video/webm">
+        <!-- Safari：透過OK -->
+        <source src="294_logo_mask_v7_pingpong.mov" type="video/quicktime">
       </video>
     </h1>
   </section>
