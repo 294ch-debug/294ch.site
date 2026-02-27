@@ -8,41 +8,89 @@
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --fg:#ffffff;
+  --muted:rgba(255,255,255,.7);
+  --line:rgba(255,255,255,.18);
+  --soft:rgba(255,255,255,.08);
+}
+
 body{
-  margin:0;
-  font-family: system-ui, -apple-system, "Noto Sans JP", sans-serif;
-  background:#0a0a0a;
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  color:var(--fg);
+  font-family: ui-sans-serif, system-ui, -apple-system,"Noto Sans JP", sans-serif;
+  background:url("bg.png") center / cover no-repeat fixed;
+}
+
+.bg-dim{
   min-height:100vh;
+  background:linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.75));
+}
+
+.container{max-width:1120px;margin:0 auto;padding:0 20px}
+
+/* HEADER（共通） */
+header{
+  position:sticky;top:0;z-index:10;
+  background:rgba(0,0,0,.45);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.header-inner{
+  display:flex;justify-content:space-between;align-items:center;
+  height:110px;
+}
+.logo{font-weight:800;letter-spacing:.18em;font-size:14px;opacity:.9}
+
+nav{display:flex;gap:40px;align-items:center}
+nav a{display:inline-flex;align-items:center;transition:.25s}
+nav:hover a{opacity:.25}
+nav a:hover{
+  transform:scale(1.45);
+  opacity:1;
+}
+.nav-sticker{
+  height:90px;
+  filter:drop-shadow(0 20px 40px rgba(0,0,0,.65));
+}
+
+/* FORM */
+.form-wrapper{
+  display:flex;
+  justify-content:center;
+  padding:120px 20px;
 }
 
 .form-box{
   width:100%;
-  max-width:520px;
-  padding:40px;
-  background:rgba(255,255,255,.05);
-  border-radius:20px;
-  backdrop-filter: blur(10px);
+  max-width:560px;
+  padding:50px;
+  background:rgba(0,0,0,.45);
+  border-radius:24px;
+  backdrop-filter:blur(14px);
+  border:1px solid var(--line);
+}
+
+.form-box h2{
+  margin-bottom:30px;
+  letter-spacing:.2em;
 }
 
 input, textarea{
   width:100%;
   margin-bottom:20px;
-  padding:14px;
-  border-radius:12px;
+  padding:16px;
+  border-radius:14px;
   border:none;
   background:rgba(255,255,255,.1);
   color:#fff;
 }
 
-textarea{min-height:140px; resize:none;}
+textarea{min-height:160px;resize:none;}
 
 button{
   width:100%;
-  padding:14px;
+  padding:16px;
   border:none;
   border-radius:999px;
   background:#fff;
@@ -52,28 +100,47 @@ button{
   transition:.2s;
 }
 
-button:hover{
-  transform:scale(1.05);
+button:hover{transform:scale(1.08)}
+
+footer{
+  text-align:center;
+  padding:40px 0;
+  font-size:12px;
+  color:var(--muted);
 }
 </style>
 </head>
 
 <body>
+<div class="bg-dim">
+
+<header>
+  <div class="container header-inner">
+    <div class="logo">294CH</div>
+    <nav>
+      <a href="index.html"><img class="nav-sticker" src="top_touka.png"></a>
+      <a href="news.html"><img class="nav-sticker" src="news_touka.png"></a>
+      <a href="discography.html"><img class="nav-sticker" src="discography_touka.png"></a>
+      <a href="about.html"><img class="nav-sticker" src="about_touka.png"></a>
+      <a href="contact.html"><img class="nav-sticker" src="contact_touka.png"></a>
+    </nav>
+  </div>
+</header>
+
+<main class="form-wrapper">
 
 <div class="form-box">
   <h2>CONTACT</h2>
 
   <form action="https://formspree.io/f/mzdawpqn" method="POST">
-    
+
     <input type="text" name="name" placeholder="お名前" required>
-    
     <input type="text" name="subject" placeholder="件名" required>
-    
     <textarea name="message" placeholder="内容" required></textarea>
 
     <!-- Turnstile -->
     <div class="cf-turnstile"
-         data-sitekey="ここにSiteKeyを入れる">
+         data-sitekey="ここにあなたのSiteKey">
     </div>
 
     <button type="submit">送信</button>
@@ -81,5 +148,9 @@ button:hover{
   </form>
 </div>
 
+</main>
+
+<footer>© 294ch works</footer>
+</div>
 </body>
 </html>
