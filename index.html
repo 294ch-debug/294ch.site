@@ -30,57 +30,120 @@ body{
 a{color:inherit;text-decoration:none}
 .container{max-width:1120px;margin:0 auto;padding:0 20px}
 
-/* Header */
+/* ===== Header（大きくする） ===== */
 header{
   position:sticky; top:0; z-index:10;
   background: rgba(0,0,0,.45);
   backdrop-filter: blur(10px);
   border-bottom:1px solid var(--line);
 }
-.header-inner{
-  display:flex; justify-content:space-between; align-items:center;
-  height:82px;
-}
-.logo{font-weight:800;letter-spacing:.18em;font-size:14px;opacity:.9}
 
-/* NAV */
-nav{display:flex;gap:16px;align-items:center}
-nav a{display:inline-flex;align-items:center}
+/* 高さを大きく＆余白追加 */
+.header-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  height:120px;           /* ← 82px → 120px */
+  padding: 8px 0;         /* ← 帯の厚み */
+  gap:16px;
+}
+
+/* ロゴも少し大きく */
+.logo{
+  font-weight:800;
+  letter-spacing:.18em;
+  font-size:18px;         /* ← 14px → 18px */
+  opacity:.95;
+  min-width: 90px;        /* 左の“芯”を作る（左右均等化に効く） */
+}
+
+/* ===== NAV（中央寄せ・過剰ホバー・他を暗く） ===== */
+nav{
+  display:flex;
+  gap:18px;
+  align-items:center;
+  justify-content:center; /* 中央に寄せる */
+  flex: 1;                /* 余白を取り、中央配置を安定させる */
+}
+
+/* リンク領域を少し広げる（押しやすく） */
+nav a{
+  display:inline-flex;
+  align-items:center;
+  padding: 10px 6px;
+  border-radius: 14px;
+  position:relative;
+}
+
+/* ステッカー自体のサイズをアップ */
 .nav-sticker{
-  height:62px; width:auto; display:block;
-  filter: drop-shadow(0 12px 22px rgba(0,0,0,.55));
-  transition: transform .18s ease, filter .18s ease;
+  height:84px;            /* ← 62px → 84px */
+  width:auto;
+  display:block;
+  filter: drop-shadow(0 14px 26px rgba(0,0,0,.55));
+  transition:
+    transform .18s ease,
+    filter .18s ease,
+    opacity .18s ease;
   transform: translateZ(0);
 }
-@media (max-width:560px){
-  .header-inner{height:74px}
-  .nav-sticker{height:46px}
-  nav{gap:10px}
-  .logo{display:none}
-}
-@media (hover:hover) and (pointer:fine){
-  nav a:hover .nav-sticker{
-    transform: translateY(-2px) scale(1.10);
-    filter: drop-shadow(0 16px 30px rgba(0,0,0,.65));
-  }
-  nav a:active .nav-sticker{transform: translateY(0) scale(1.05)}
+
+/* 右側のバランス用（見えないダミー） */
+.header-spacer{
+  min-width: 90px;        /* .logoと同じ幅にして左右均等 */
 }
 
-/* HERO */
+/* スマホ：均等に中央寄せ + サイズ調整 */
+@media (max-width:560px){
+  .header-inner{
+    height:104px;         /* スマホでも太め */
+    padding: 10px 0;
+  }
+  .logo{ display:none; }
+  .header-spacer{ display:none; }
+  nav{
+    width:100%;
+    justify-content:center;
+    gap:12px;
+  }
+  .nav-sticker{ height:64px; }  /* スマホは過剰になりすぎない程度 */
+}
+
+/* PCホバー：過剰拡大 + それ以外を暗く */
+@media (hover:hover) and (pointer:fine){
+
+  /* ホバー時、当たってない他リンクを暗くする（nav全体がhover中だけ） */
+  nav:hover a{ opacity:.42; }
+  nav:hover a:hover{ opacity:1; }
+
+  /* 過剰拡大（ガッツリ） */
+  nav a:hover .nav-sticker{
+    transform: translateY(-6px) scale(1.35) rotate(-2deg);
+    filter: drop-shadow(0 26px 44px rgba(0,0,0,.70));
+  }
+
+  /* ホバー中、拡大した以外を“少しぼかす”と暗さが自然に見える */
+  nav:hover a:not(:hover) .nav-sticker{
+    filter: drop-shadow(0 10px 18px rgba(0,0,0,.45)) blur(.35px);
+  }
+
+  /* クリック時の押し込み */
+  nav a:active .nav-sticker{
+    transform: translateY(-2px) scale(1.25);
+  }
+}
+
+/* ===== HERO（あなたのロゴはここ、既存のままでOK） ===== */
 .hero{
   padding:160px 0 120px;
   display:flex; flex-direction:column; align-items:center; text-align:center;
 }
-
-/* ロゴの枠（サイズ） */
 .hero-logo{
   width:100%;
   max-width:980px;
   position:relative;
-  --glitch-amp: 10px;   /* グリッチのズレ量（弱め推奨 6〜14px） */
+  --glitch-amp: 10px;
 }
-
-/* 擬似ハイレゾ：背面ぼかし */
 .hero-logo::before{
   content:"";
   position:absolute;
@@ -91,8 +154,6 @@ nav a{display:inline-flex;align-items:center}
   transform: translateY(10px);
   pointer-events:none;
 }
-
-/* グリッチ用レイヤー：同じ画像をもう一枚重ねる（普段は透明） */
 .hero-logo::after{
   content:"";
   position:absolute;
@@ -103,81 +164,52 @@ nav a{display:inline-flex;align-items:center}
   pointer-events:none;
   z-index:2;
 }
-
-/* ロゴ本体 */
 .hero-logo img{
   width:100%;
   height:auto;
   display:block;
   position:relative;
   z-index:1;
-
   animation: floatLogo 6s ease-in-out infinite;
-
   filter:
     drop-shadow(0 30px 60px rgba(0,0,0,.60))
     drop-shadow(0 0 42px rgba(120,160,255,.30))
     contrast(1.06)
     saturate(1.04);
-
   transform: translateZ(0);
   backface-visibility:hidden;
 }
-
-/* 浮遊 */
 @keyframes floatLogo{
   0%{ transform: translateY(0px); }
   50%{ transform: translateY(-14px); }
   100%{ transform: translateY(0px); }
 }
-
-/* ランダムグリッチを付与するときにだけ付くクラス */
 .hero-logo.is-glitch img{
   animation: floatLogo 6s ease-in-out infinite, glitchJitter 160ms steps(2,end) 1;
 }
-
 .hero-logo.is-glitch::after{
-  opacity:.35; /* 一瞬だけ見せる */
+  opacity:.35;
   animation: glitchSlice 180ms steps(2,end) 1;
   filter:
     drop-shadow(0 0 26px rgba(255,120,180,.20))
     drop-shadow(0 0 26px rgba(120,200,255,.18));
 }
-
-/* 本体をちょっとだけブレさせる */
 @keyframes glitchJitter{
   0%{ transform: translateY(0) translateX(0); }
   25%{ transform: translateY(-1px) translateX(calc(var(--glitch-amp) * -0.35)); }
   55%{ transform: translateY(1px) translateX(calc(var(--glitch-amp) * 0.45)); }
   100%{ transform: translateY(0) translateX(0); }
 }
-
-/* 疑似スキャンライン：clip-pathで分断して横ズレ */
 @keyframes glitchSlice{
-  0%{
-    clip-path: inset(0 0 82% 0);
-    transform: translateX(calc(var(--glitch-amp) * -1));
-  }
-  33%{
-    clip-path: inset(34% 0 44% 0);
-    transform: translateX(calc(var(--glitch-amp) * 0.8));
-  }
-  66%{
-    clip-path: inset(70% 0 10% 0);
-    transform: translateX(calc(var(--glitch-amp) * -0.6));
-  }
-  100%{
-    clip-path: inset(0 0 0 0);
-    transform: translateX(0);
-  }
+  0%{ clip-path: inset(0 0 82% 0); transform: translateX(calc(var(--glitch-amp) * -1)); }
+  33%{ clip-path: inset(34% 0 44% 0); transform: translateX(calc(var(--glitch-amp) * 0.8)); }
+  66%{ clip-path: inset(70% 0 10% 0); transform: translateX(calc(var(--glitch-amp) * -0.6)); }
+  100%{ clip-path: inset(0 0 0 0); transform: translateX(0); }
 }
-
-/* 動きが苦手な環境では停止 */
 @media (prefers-reduced-motion: reduce){
   .hero-logo img{ animation:none; }
   .hero-logo::after{ display:none; }
 }
-
 @media (max-width:560px){
   .hero{ padding:140px 0 90px; }
   .hero-logo{ max-width:92vw; --glitch-amp: 8px; }
@@ -218,6 +250,7 @@ footer{
 <header>
   <div class="container header-inner">
     <div class="logo">294CH</div>
+
     <nav aria-label="Site navigation">
       <a href="index.html" aria-label="TOP"><img class="nav-sticker" src="top_touka.png" alt="TOP"></a>
       <a href="news.html" aria-label="NEWS"><img class="nav-sticker" src="news_touka.png" alt="NEWS"></a>
@@ -225,6 +258,8 @@ footer{
       <a href="about.html" aria-label="ABOUT"><img class="nav-sticker" src="about_touka.png" alt="ABOUT"></a>
       <a href="contact.html" aria-label="CONTACT"><img class="nav-sticker" src="contact_touka.png" alt="CONTACT"></a>
     </nav>
+
+    <div class="header-spacer" aria-hidden="true"></div>
   </div>
 </header>
 
@@ -252,13 +287,9 @@ footer{
   function rand(min, max){ return Math.random() * (max - min) + min; }
 
   function triggerGlitch(){
-    // たまにだけ発火（3〜9秒間隔）
     el.classList.add("is-glitch");
-
-    // 120〜220msで解除
     const duration = Math.floor(rand(120, 220));
     setTimeout(() => el.classList.remove("is-glitch"), duration);
-
     schedule();
   }
 
