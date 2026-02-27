@@ -47,10 +47,21 @@ nav a{display:inline-flex;align-items:center;padding:10px 6px;transition:transfo
 .hero-mini{padding:90px 0 40px}
 .section{padding:70px 0;border-top:1px solid var(--line)}
 .section h2{font-size:13px;letter-spacing:.25em;margin-bottom:24px;opacity:.95}
-.card{border:1px solid var(--line);background:rgba(0,0,0,.35);backdrop-filter:blur(8px);padding:28px;border-radius:18px}
+.card{
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.35);
+  backdrop-filter:blur(8px);
+  padding:28px;
+  border-radius:18px;
+}
 
 .news-list{display:flex;flex-direction:column;gap:18px}
-.news-item{padding:18px 18px;border:1px solid var(--line);border-radius:14px;background:rgba(0,0,0,.28)}
+.news-item{
+  padding:18px 18px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:rgba(0,0,0,.28);
+}
 .news-date{font-size:12px;color:var(--muted);letter-spacing:.12em}
 .news-title{margin-top:8px;font-size:14px;font-weight:700}
 .news-sub{margin-top:8px;color:var(--muted);font-size:13px}
@@ -82,12 +93,12 @@ footer{border-top:1px solid var(--line);padding:30px 0;font-size:12px;color:var(
     <h2>NEWS</h2>
     <div class="card">
       <div class="news-list">
-        <div class="news-item">
+        <div class="news-item" id="news-1">
           <div class="news-date">2026/xx/xx</div>
           <div class="news-title">coming soon</div>
         </div>
 
-        <div class="news-item">
+        <div class="news-item" id="news-2">
           <div class="news-date">2026/xx/xx</div>
           <div class="news-title">1st Single "xxxx"</div>
           <div class="news-sub">coming soon</div>
