@@ -1,156 +1,141 @@
+<!-- contact.html -->
 <!doctype html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CONTACT | 294.</title>
+<link rel="icon" type="image/png" href="294_logo_White_AI_data_0226-removebg-preview.png">
 
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <style>
+/* 共通（newsと同一） */
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --fg:#ffffff;
-  --muted:rgba(255,255,255,.7);
-  --line:rgba(255,255,255,.18);
-  --soft:rgba(255,255,255,.08);
-}
-
-body{
-  color:var(--fg);
-  font-family: ui-sans-serif, system-ui, -apple-system,"Noto Sans JP", sans-serif;
-  background:url("bg.png") center / cover no-repeat fixed;
-}
-
-.bg-dim{
-  min-height:100vh;
-  background:linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.75));
-}
-
+:root{--fg:#fff;--muted:rgba(255,255,255,.72);--line:rgba(255,255,255,.18);--soft:rgba(255,255,255,.10)}
+body{color:var(--fg);font-family:ui-sans-serif,system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;background:url("bg.png") center/cover no-repeat fixed}
+a{color:inherit;text-decoration:none}
 .container{max-width:1120px;margin:0 auto;padding:0 20px}
+.bg-dim{min-height:100vh;background:linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.78))}
+.page-dim{position:fixed;inset:0;background:rgba(0,0,0,.22);opacity:0;transition:opacity .18s ease;pointer-events:none;z-index:9}
+body.nav-hover .page-dim{opacity:1}
 
-/* HEADER（共通） */
-header{
-  position:sticky;top:0;z-index:10;
-  background:rgba(0,0,0,.45);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line);
-}
-.header-inner{
-  display:flex;justify-content:space-between;align-items:center;
-  height:110px;
-}
+header{position:sticky;top:0;z-index:10;background:rgba(0,0,0,.45);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.header-inner{display:flex;justify-content:space-between;align-items:center;height:110px}
 .logo{font-weight:800;letter-spacing:.18em;font-size:14px;opacity:.9}
-
 nav{display:flex;gap:40px;align-items:center}
-nav a{display:inline-flex;align-items:center;transition:.25s}
-nav:hover a{opacity:.25}
-nav a:hover{
-  transform:scale(1.45);
-  opacity:1;
+nav a{display:inline-flex;align-items:center;padding:10px 6px;transition:transform .22s ease, opacity .22s ease, filter .22s ease;transform:translateZ(0);position:relative;z-index:10}
+.nav-sticker{height:90px;width:auto;display:block;filter:drop-shadow(0 20px 40px rgba(0,0,0,.65));transition:transform .22s ease, filter .22s ease}
+@media (hover:hover) and (pointer:fine){
+  nav:hover a{opacity:.25;filter:brightness(.78)}
+  nav a:hover{opacity:1;filter:brightness(1);transform:scale(1.55);z-index:11}
+  nav a:hover .nav-sticker{filter:drop-shadow(0 28px 55px rgba(0,0,0,.78))}
+  nav a:active{transform:scale(1.42)}
 }
-.nav-sticker{
-  height:90px;
-  filter:drop-shadow(0 20px 40px rgba(0,0,0,.65));
-}
-
-/* FORM */
-.form-wrapper{
-  display:flex;
-  justify-content:center;
-  padding:120px 20px;
+@media (max-width:560px){
+  .header-inner{height:88px}
+  .logo{display:none}
+  nav{width:100%;justify-content:space-between;gap:10px;overflow:hidden}
+  nav a{padding:8px 0;flex:1 1 20%;justify-content:center;transform:none !important}
+  .nav-sticker{height:56px}
 }
 
+/* contact */
+.hero-mini{padding:70px 0 20px}
+.section{padding:40px 0 80px}
+.section h2{font-size:13px;letter-spacing:.25em;margin-bottom:18px;opacity:.95}
+.form-wrap{display:flex;justify-content:center}
 .form-box{
   width:100%;
-  max-width:560px;
-  padding:50px;
-  background:rgba(0,0,0,.45);
-  border-radius:24px;
-  backdrop-filter:blur(14px);
+  max-width:640px;
   border:1px solid var(--line);
+  background:rgba(0,0,0,.35);
+  backdrop-filter:blur(10px);
+  padding:34px;
+  border-radius:20px;
 }
-
-.form-box h2{
-  margin-bottom:30px;
-  letter-spacing:.2em;
-}
-
-input, textarea{
+input,textarea{
   width:100%;
-  margin-bottom:20px;
-  padding:16px;
+  padding:14px 16px;
+  margin-top:12px;
   border-radius:14px;
-  border:none;
-  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.08);
   color:#fff;
+  outline:none;
 }
-
-textarea{min-height:160px;resize:none;}
-
+textarea{min-height:160px;resize:none}
 button{
   width:100%;
-  padding:16px;
+  margin-top:16px;
+  height:48px;
   border:none;
   border-radius:999px;
   background:#fff;
   color:#000;
-  font-weight:bold;
+  font-weight:800;
   cursor:pointer;
-  transition:.2s;
+  transition:transform .18s ease;
 }
-
-button:hover{transform:scale(1.08)}
-
-footer{
-  text-align:center;
-  padding:40px 0;
-  font-size:12px;
-  color:var(--muted);
-}
+button:hover{transform:scale(1.06)}
+footer{border-top:1px solid var(--line);padding:30px 0;font-size:12px;color:var(--muted);text-align:center}
 </style>
 </head>
 
 <body>
+<div class="page-dim" aria-hidden="true"></div>
 <div class="bg-dim">
 
 <header>
   <div class="container header-inner">
     <div class="logo">294CH</div>
-    <nav>
-      <a href="index.html"><img class="nav-sticker" src="top_touka.png"></a>
-      <a href="news.html"><img class="nav-sticker" src="news_touka.png"></a>
-      <a href="discography.html"><img class="nav-sticker" src="discography_touka.png"></a>
-      <a href="about.html"><img class="nav-sticker" src="about_touka.png"></a>
-      <a href="contact.html"><img class="nav-sticker" src="contact_touka.png"></a>
+    <nav aria-label="Site navigation">
+      <a href="index.html" aria-label="TOP"><img class="nav-sticker" src="top_touka.png" alt="TOP"></a>
+      <a href="news.html" aria-label="NEWS"><img class="nav-sticker" src="news_touka.png" alt="NEWS"></a>
+      <a href="discography.html" aria-label="DISCOGRAPHY"><img class="nav-sticker" src="discography_touka.png" alt="DISCOGRAPHY"></a>
+      <a href="about.html" aria-label="ABOUT"><img class="nav-sticker" src="about_touka.png" alt="ABOUT"></a>
+      <a href="contact.html" aria-label="CONTACT"><img class="nav-sticker" src="contact_touka.png" alt="CONTACT"></a>
     </nav>
   </div>
 </header>
 
-<main class="form-wrapper">
+<main class="container">
+  <section class="hero-mini"></section>
 
-<div class="form-box">
-  <h2>CONTACT</h2>
+  <section class="section">
+    <h2>CONTACT</h2>
 
-  <form action="https://formspree.io/f/mzdawpqn" method="POST">
+    <div class="form-wrap">
+      <div class="form-box">
+        <form action="https://formspree.io/f/mzdawpqn" method="POST">
+          <input type="text" name="name" placeholder="お名前" required>
+          <input type="text" name="subject" placeholder="件名" required>
+          <textarea name="message" placeholder="内容" required></textarea>
 
-    <input type="text" name="name" placeholder="お名前" required>
-    <input type="text" name="subject" placeholder="件名" required>
-    <textarea name="message" placeholder="内容" required></textarea>
+          <!-- Turnstile：ここだけ差し替え -->
+          <div class="cf-turnstile" data-sitekey="ここにあなたのSiteKey"></div>
 
-    <!-- Turnstile -->
-    <div class="cf-turnstile"
-         data-sitekey="ここにあなたのSiteKey">
+          <button type="submit">送信</button>
+        </form>
+      </div>
     </div>
-
-    <button type="submit">送信</button>
-
-  </form>
-</div>
-
+  </section>
 </main>
 
 <footer>© 294ch works</footer>
 </div>
+
+<script>
+const body = document.body;
+const nav = document.querySelector("header nav");
+if (nav) {
+  nav.addEventListener("mouseenter", ()=> body.classList.add("nav-hover"));
+  nav.addEventListener("mouseleave", ()=> body.classList.remove("nav-hover"));
+  nav.addEventListener("focusin", ()=> body.classList.add("nav-hover"));
+  nav.addEventListener("focusout", (e)=>{
+    if(!nav.contains(e.relatedTarget)) body.classList.remove("nav-hover");
+  });
+}
+</script>
 </body>
 </html>
