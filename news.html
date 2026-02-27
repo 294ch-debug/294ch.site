@@ -1,157 +1,76 @@
+<!-- news.html -->
 <!doctype html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>294. | NEWS</title>
+<title>NEWS | 294.</title>
 <link rel="icon" type="image/png" href="294_logo_White_AI_data_0226-removebg-preview.png">
 
 <style>
+/* ===== 共通（indexと同じ） ===== */
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --fg:#ffffff;
-  --muted:rgba(255,255,255,.7);
+  --muted:rgba(255,255,255,.72);
   --line:rgba(255,255,255,.18);
-  --soft:rgba(255,255,255,.08);
+  --soft:rgba(255,255,255,.10);
 }
-
-html,body{height:100%}
 body{
   color:var(--fg);
-  font-family: ui-sans-serif, system-ui, -apple-system,
-  "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
-  background: url("bg.png") center / cover no-repeat fixed;
-  overflow-x:hidden;
+  font-family: ui-sans-serif, system-ui, -apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP", sans-serif;
+  background:url("bg.png") center / cover no-repeat fixed;
 }
-
-.bg-dim{
-  min-height:100vh;
-  background: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.72));
-}
-
 a{color:inherit;text-decoration:none}
 .container{max-width:1120px;margin:0 auto;padding:0 20px}
+.bg-dim{min-height:100vh;background:linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.78))}
+.page-dim{position:fixed;inset:0;background:rgba(0,0,0,.22);opacity:0;transition:opacity .18s ease;pointer-events:none;z-index:9}
+body.nav-hover .page-dim{opacity:1}
 
-/* dim overlay */
-.page-dim{
-  position:fixed; inset:0;
-  background: rgba(0,0,0,.0);
-  opacity:0; pointer-events:none;
-  z-index:8;
-  transition: opacity .18s ease;
-}
+header{position:sticky;top:0;z-index:10;background:rgba(0,0,0,.45);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.header-inner{display:flex;justify-content:space-between;align-items:center;height:110px}
+.logo{font-weight:800;letter-spacing:.18em;font-size:14px;opacity:.9}
 
-/* Header */
-header{
-  position:sticky; top:0; z-index:10;
-  background: rgba(0,0,0,.45);
-  backdrop-filter: blur(10px);
-  border-bottom:1px solid var(--line);
-}
-.header-inner{
-  display:flex; justify-content:space-between; align-items:center;
-  height:120px; padding:8px 0; gap:16px;
-}
-.logo{
-  font-weight:800; letter-spacing:.18em;
-  font-size:18px; opacity:.95;
-  min-width:90px;
-}
-
-/* NAV */
-nav{
-  display:flex; gap:18px; align-items:center; justify-content:center;
-  flex:1; min-width:0;
-}
-nav a{
-  display:inline-flex; align-items:center;
-  padding:10px 6px; border-radius:14px;
-  position:relative; min-width:0;
-}
-.nav-sticker{
-  height:84px; width:auto; display:block; max-width:100%;
-  filter: drop-shadow(0 14px 26px rgba(0,0,0,.55));
-  transition: transform .18s ease, filter .18s ease, opacity .18s ease;
-  transform: translateZ(0);
-}
-.header-spacer{min-width:90px}
-
-@media (max-width:560px){
-  .header-inner{height:auto; padding:10px 0 14px}
-  .logo,.header-spacer{display:none}
-  nav{width:100%; justify-content:center; gap:10px; flex-wrap:wrap; padding:4px 0}
-  nav a{padding:8px 4px}
-  .nav-sticker{height:58px}
-}
-
+nav{display:flex;gap:40px;align-items:center}
+nav a{display:inline-flex;align-items:center;padding:10px 6px;transition:transform .22s ease, opacity .22s ease, filter .22s ease;transform:translateZ(0);position:relative;z-index:10}
+.nav-sticker{height:90px;width:auto;display:block;filter:drop-shadow(0 20px 40px rgba(0,0,0,.65));transition:transform .22s ease, filter .22s ease}
 @media (hover:hover) and (pointer:fine){
-  nav:hover a{opacity:.45}
-  nav:hover a:hover{opacity:1}
-
-  nav a:hover .nav-sticker{
-    transform: translateY(-6px) scale(1.35) rotate(-2deg);
-    filter: drop-shadow(0 26px 44px rgba(0,0,0,.70));
-  }
-  nav:hover a:not(:hover) .nav-sticker{
-    filter: drop-shadow(0 10px 18px rgba(0,0,0,.45)) blur(.35px);
-  }
-  body.nav-dim .page-dim{
-    opacity:1;
-    background: rgba(0,0,0,.28);
-  }
+  nav:hover a{opacity:.25;filter:brightness(.78)}
+  nav a:hover{opacity:1;filter:brightness(1);transform:scale(1.55);z-index:11}
+  nav a:hover .nav-sticker{filter:drop-shadow(0 28px 55px rgba(0,0,0,.78))}
+  nav a:active{transform:scale(1.42)}
+}
+@media (max-width:560px){
+  .header-inner{height:88px}
+  .logo{display:none}
+  nav{width:100%;justify-content:space-between;gap:10px;overflow:hidden}
+  nav a{padding:8px 0;flex:1 1 20%;justify-content:center;transform:none !important}
+  .nav-sticker{height:56px}
 }
 
-/* Main */
-.hero-mini{
-  padding:70px 0 26px;
-}
-.hero-mini h1{
-  font-size:14px;
-  letter-spacing:.25em;
-  opacity:.95;
-}
-
-/* News list */
-.section{padding:40px 0 70px;border-top:1px solid var(--line)}
+.hero-mini{padding:90px 0 40px}
+.section{padding:70px 0;border-top:1px solid var(--line)}
+.section h2{font-size:13px;letter-spacing:.25em;margin-bottom:24px;opacity:.95}
 .card{
   border:1px solid var(--line);
-  background: rgba(0,0,0,.35);
-  backdrop-filter: blur(8px);
+  background:rgba(0,0,0,.35);
+  backdrop-filter:blur(8px);
   padding:28px;
   border-radius:18px;
 }
-.news-list{
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-}
-.news-item{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  padding:16px 0;
-  border-bottom:1px solid rgba(255,255,255,.10);
-}
-.news-item:last-child{border-bottom:none;padding-bottom:0}
-.news-date{
-  font-size:12px;
-  letter-spacing:.08em;
-  color:var(--muted);
-}
-.news-title{
-  font-size:14px;
-  font-weight:700;
-}
-.news-body{
-  font-size:13px;
-  color:rgba(255,255,255,.88);
-  line-height:1.7;
-}
 
-footer{
-  border-top:1px solid var(--line);
-  padding:30px 0;font-size:12px;color:var(--muted);text-align:center;
+.news-list{display:flex;flex-direction:column;gap:18px}
+.news-item{
+  padding:18px 18px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:rgba(0,0,0,.28);
 }
+.news-date{font-size:12px;color:var(--muted);letter-spacing:.12em}
+.news-title{margin-top:8px;font-size:14px;font-weight:700}
+.news-sub{margin-top:8px;color:var(--muted);font-size:13px}
+
+footer{border-top:1px solid var(--line);padding:30px 0;font-size:12px;color:var(--muted);text-align:center}
 </style>
 </head>
 
@@ -162,38 +81,33 @@ footer{
 <header>
   <div class="container header-inner">
     <div class="logo">294CH</div>
-    <nav aria-label="Site navigation" id="siteNav">
+    <nav aria-label="Site navigation">
       <a href="index.html" aria-label="TOP"><img class="nav-sticker" src="top_touka.png" alt="TOP"></a>
       <a href="news.html" aria-label="NEWS"><img class="nav-sticker" src="news_touka.png" alt="NEWS"></a>
       <a href="discography.html" aria-label="DISCOGRAPHY"><img class="nav-sticker" src="discography_touka.png" alt="DISCOGRAPHY"></a>
       <a href="about.html" aria-label="ABOUT"><img class="nav-sticker" src="about_touka.png" alt="ABOUT"></a>
       <a href="contact.html" aria-label="CONTACT"><img class="nav-sticker" src="contact_touka.png" alt="CONTACT"></a>
     </nav>
-    <div class="header-spacer" aria-hidden="true"></div>
   </div>
 </header>
 
 <main class="container">
-  <section class="hero-mini">
-    <h1>NEWS</h1>
-  </section>
+  <section class="hero-mini"></section>
 
   <section class="section">
+    <h2>NEWS</h2>
     <div class="card">
       <div class="news-list">
-
-        <article class="news-item">
+        <div class="news-item">
           <div class="news-date">2026/xx/xx</div>
           <div class="news-title">coming soon</div>
-          <div class="news-body">coming soon</div>
-        </article>
+        </div>
 
-        <article class="news-item">
+        <div class="news-item">
           <div class="news-date">2026/xx/xx</div>
           <div class="news-title">1st Single "xxxx"</div>
-          <div class="news-body">coming soon</div>
-        </article>
-
+          <div class="news-sub">coming soon</div>
+        </div>
       </div>
     </div>
   </section>
@@ -203,13 +117,16 @@ footer{
 </div>
 
 <script>
-(() => {
-  const nav = document.getElementById("siteNav");
-  if (!nav) return;
-  nav.addEventListener("mouseenter", () => document.body.classList.add("nav-dim"));
-  nav.addEventListener("mouseleave", () => document.body.classList.remove("nav-dim"));
-})();
+const body = document.body;
+const nav = document.querySelector("header nav");
+if (nav) {
+  nav.addEventListener("mouseenter", ()=> body.classList.add("nav-hover"));
+  nav.addEventListener("mouseleave", ()=> body.classList.remove("nav-hover"));
+  nav.addEventListener("focusin", ()=> body.classList.add("nav-hover"));
+  nav.addEventListener("focusout", (e)=>{
+    if(!nav.contains(e.relatedTarget)) body.classList.remove("nav-hover");
+  });
+}
 </script>
-
 </body>
 </html>
