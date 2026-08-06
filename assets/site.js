@@ -16,68 +16,133 @@
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hero = document.querySelector('.hero');
-  const heroArt = document.querySelector('.hero-art');
-  const heroCanvas = document.querySelector('.hero-canvas');
-  if (hero && heroArt && heroCanvas && !reduced) {
-    const context = heroCanvas.getContext('2d', { alpha: false });
-    const buffer = document.createElement('canvas');
-    const bufferContext = buffer.getContext('2d', { alpha: false });
-    let width = 0;
-    let height = 0;
-    let pointerX = 0;
-    let pointerY = 0;
-    let targetX = 0;
-    let targetY = 0;
+  const tunnelCanvas = document.querySelector('.tunnel-canvas');
 
-    const renderSource = () => {
-      if (!heroArt.naturalWidth) return;
-      const rect = heroCanvas.getBoundingClientRect();
-      const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+  if (hero && tunnelCanvas) {
+    const context = tunnelCanvas.getContext('2d', { alpha: false });
+    let width = 1;
+    let height = 1;
+    let ratio = 1;
+    let frame = 0;
+    let running = true;
+
+    const resizeTunnel = () => {
+      const rect = tunnelCanvas.getBoundingClientRect();
       width = Math.max(1, Math.round(rect.width));
       height = Math.max(1, Math.round(rect.height));
-      heroCanvas.width = Math.round(width * ratio);
-      heroCanvas.height = Math.round(height * ratio);
-      buffer.width = width;
-      buffer.height = height;
+      ratio = Math.min(window.devicePixelRatio || 1, 2.25);
+      tunnelCanvas.width = Math.round(width * ratio);
+      tunnelCanvas.height = Math.round(height * ratio);
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
-      const scale = Math.max(width / heroArt.naturalWidth, height / heroArt.naturalHeight) * 1.04;
-      const drawWidth = heroArt.naturalWidth * scale;
-      const drawHeight = heroArt.naturalHeight * scale;
-      bufferContext.drawImage(heroArt, (width - drawWidth) / 2, (height - drawHeight) / 2, drawWidth, drawHeight);
-      hero.classList.add('canvas-ready');
     };
 
-    const draw = now => {
-      if (width && height) {
-        pointerX += (targetX - pointerX) * 0.035;
-        pointerY += (targetY - pointerY) * 0.035;
-        context.fillStyle = '#08090d';
-        context.fillRect(0, 0, width, height);
-        const t = now * 0.00042;
-        const band = 9;
-        for (let y = 0; y < height; y += band) {
-          const waveX = Math.sin(y * 0.018 + t * 3.1) * 7 + Math.sin(y * 0.006 - t * 1.7) * 5 + pointerX;
-          const waveY = Math.sin(y * 0.012 - t * 2.3) * 2.5 + pointerY;
-          context.drawImage(buffer, 0, y, width, band + 2, waveX - 10, y + waveY, width + 20, band + 2);
-        }
+    const tunnelPoint = (depth, angle, now) => {
+      const travel = Math.pow(Math.max(depth, 0), 1.47);
+      const bendX = Math.sin(now * 0.00016) * width * 0.012 * travel;
+      const bendY = Math.cos(now * 0.00013) * height * 0.011 * travel;
+      const centerX = width * 0.69 - width * 0.075 * travel + bendX;
+      const centerY = height * 0.68 - height * 0.055 * travel + bendY;
+      const ripple = 1 + Math.sin(angle * 3 + depth * 5.2 + now * 0.00048) * 0.055;
+      const radiusX = width * 0.76 * travel * ripple;
+      const radiusY = height * 0.72 * travel * (1 + Math.cos(angle * 2 - now * 0.00036) * 0.045);
+      return {
+        x: centerX + Math.cos(angle) * radiusX,
+        y: centerY + Math.sin(angle) * radiusY
+      };
+    };
+
+    const addRingPath = (depth, now) => {
+      const segments = 64;
+      for (let step = 0; step <= segments; step += 1) {
+        const angle = (step / segments) * Math.PI * 2;
+        const point = tunnelPoint(depth, angle, now);
+        if (step === 0) context.moveTo(point.x, point.y);
+        else context.lineTo(point.x, point.y);
       }
-      window.requestAnimationFrame(draw);
+      context.closePath();
     };
 
-    if (heroArt.complete) renderSource();
-    else heroArt.addEventListener('load', renderSource, { once: true });
-    window.addEventListener('resize', renderSource);
-    hero.addEventListener('pointermove', event => {
-      const rect = hero.getBoundingClientRect();
-      targetX = ((event.clientX - rect.left) / rect.width - 0.5) * -10;
-      targetY = ((event.clientY - rect.top) / rect.height - 0.5) * -7;
+    const drawTunnel = now => {
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      context.clearRect(0, 0, width, height);
+
+      const vanishingX = width * 0.69;
+      const vanishingY = height * 0.68;
+      const background = context.createRadialGradient(vanishingX, vanishingY, 1, vanishingX, vanishingY, Math.max(width, height));
+      background.addColorStop(0, '#000006');
+      background.addColorStop(0.16, '#09071a');
+      background.addColorStop(0.48, '#060815');
+      background.addColorStop(1, '#020307');
+      context.fillStyle = background;
+      context.fillRect(0, 0, width, height);
+
+      const glow = context.createRadialGradient(vanishingX, vanishingY, 0, vanishingX, vanishingY, Math.min(width, height) * 0.26);
+      glow.addColorStop(0, 'rgba(139,105,255,.15)');
+      glow.addColorStop(0.34, 'rgba(62,103,255,.07)');
+      glow.addColorStop(1, 'rgba(0,0,0,0)');
+      context.fillStyle = glow;
+      context.fillRect(0, 0, width, height);
+
+      context.lineJoin = 'round';
+      context.lineCap = 'round';
+
+      const rays = 26;
+      for (let ray = 0; ray < rays; ray += 1) {
+        const angle = (ray / rays) * Math.PI * 2;
+        context.beginPath();
+        for (let step = 0; step <= 46; step += 1) {
+          const depth = 0.018 + (step / 46) * 1.18;
+          const point = tunnelPoint(depth, angle, now);
+          if (step === 0) context.moveTo(point.x, point.y);
+          else context.lineTo(point.x, point.y);
+        }
+        const accent = ray % 7 === 0;
+        context.strokeStyle = accent ? 'rgba(126,119,255,.34)' : 'rgba(236,239,255,.22)';
+        context.lineWidth = accent ? 1.05 : 0.72;
+        context.stroke();
+      }
+
+      const ringCount = 25;
+      const progress = reduced ? 0.22 : (now * 0.000075) % 1;
+      for (let ring = 0; ring < ringCount; ring += 1) {
+        const normalized = ((ring / ringCount) + progress) % 1;
+        const depth = 0.025 + normalized * 1.17;
+        context.beginPath();
+        addRingPath(depth, now);
+        const opacity = 0.09 + normalized * 0.36;
+        if (ring % 8 === 0) context.strokeStyle = `rgba(155,119,255,${Math.min(0.5, opacity + 0.1)})`;
+        else if (ring % 11 === 0) context.strokeStyle = `rgba(71,157,255,${Math.min(0.48, opacity + 0.08)})`;
+        else context.strokeStyle = `rgba(242,244,255,${opacity})`;
+        context.lineWidth = 0.55 + normalized * 0.9;
+        context.stroke();
+      }
+
+      context.beginPath();
+      context.arc(vanishingX, vanishingY, Math.max(2, width * 0.003), 0, Math.PI * 2);
+      context.fillStyle = 'rgba(205,193,255,.75)';
+      context.shadowBlur = 13;
+      context.shadowColor = '#8f70ff';
+      context.fill();
+      context.shadowBlur = 0;
+
+      if (!reduced && running) frame = window.requestAnimationFrame(drawTunnel);
+    };
+
+    resizeTunnel();
+    drawTunnel(0);
+    window.addEventListener('resize', () => {
+      resizeTunnel();
+      if (reduced) drawTunnel(0);
     });
-    hero.addEventListener('pointerleave', () => {
-      targetX = 0;
-      targetY = 0;
+    document.addEventListener('visibilitychange', () => {
+      running = !document.hidden;
+      if (running && !reduced) {
+        window.cancelAnimationFrame(frame);
+        frame = window.requestAnimationFrame(drawTunnel);
+      }
     });
-    window.requestAnimationFrame(draw);
   }
+
   const objectLayers = document.querySelectorAll('.object-layer');
   if (hero && objectLayers.length && !reduced) {
     let layerTargetX = 0;
@@ -86,7 +151,7 @@
     let layerCurrentY = 0;
     hero.addEventListener('pointermove', event => {
       const rect = hero.getBoundingClientRect();
-      layerTargetX = (event.clientX / rect.width - 0.5) * -9;
+      layerTargetX = ((event.clientX - rect.left) / rect.width - 0.5) * -9;
       layerTargetY = ((event.clientY - rect.top) / rect.height - 0.5) * -7;
     });
     hero.addEventListener('pointerleave', () => {
@@ -105,8 +170,9 @@
     };
     window.requestAnimationFrame(moveLayers);
   }
+
   if (reduced) {
-    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+    document.querySelectorAll('.reveal').forEach(element => element.classList.add('visible'));
   } else {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -116,6 +182,6 @@
         }
       });
     }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
   }
 })();

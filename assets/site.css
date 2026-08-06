@@ -26,3 +26,25 @@
 @media(max-width:760px){.object-planet{width:92vw;right:-45%;top:10%}.object-heart{width:58vw;right:-14%;bottom:17%}.object-stars{width:48vw;left:-8%;top:14%}.object-blob{width:66vw;right:19%;bottom:-4%}.object-heart-mini{width:25vw;left:13%;bottom:31%}.object-stars-mini{width:31vw;right:-8%;top:45%}.hud-time{display:none}.hero h1:after{font-size:.34em;top:55%;left:8%}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.hero-canvas{display:none}.hero-art{opacity:1!important}}
 @keyframes tunnel-flight{0%{opacity:0;transform:scale(.92)}10%{opacity:.8}30%{opacity:.96}45%{opacity:0;transform:scale(2.25)}100%{opacity:0;transform:scale(2.25)}}
+
+/* Hi-DPI procedural tunnel: the raster texture is only a subtle color layer. */
+.tunnel-stage{position:absolute;inset:-2%;z-index:-4;overflow:hidden;background:#030408}
+.tunnel-texture{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover;object-position:center;opacity:.1;filter:saturate(1.15) contrast(1.16);mix-blend-mode:screen}
+.tunnel-canvas{position:absolute;inset:0;z-index:0;width:100%;height:100%;display:block}
+
+/* Compact custom social marks keep the footer/profile consistent with the Y2K UI. */
+.footer-links a{display:inline-flex;align-items:center;gap:8px}
+.footer-links b{font:inherit;font-weight:600}
+.social-icon{position:relative;display:inline-grid;place-items:center;width:27px;height:27px;flex:none;overflow:hidden;border:1px solid rgba(255,255,255,.72);background:linear-gradient(145deg,rgba(255,255,255,.24),rgba(73,46,164,.54));color:#fff;box-shadow:2px 2px 0 rgba(112,72,255,.9),inset 0 0 8px rgba(255,255,255,.2);font-style:normal;line-height:1;transition:transform .2s ease,box-shadow .2s ease}
+a:hover>.social-icon,a:hover span>.social-icon{transform:translate(-1px,-1px);box-shadow:4px 4px 0 rgba(112,72,255,.9),inset 0 0 8px rgba(255,255,255,.28)}
+.social-x{border-radius:50%;font-size:11px;font-weight:900;letter-spacing:-.08em;background:linear-gradient(145deg,#30333c,#050608)}
+.social-instagram{border-radius:8px;background:radial-gradient(circle at 67% 70%,#ffe15f 0 11%,transparent 12%),radial-gradient(circle at 33% 92%,#ff7043 0 22%,transparent 45%),linear-gradient(135deg,#7b36ff,#f72585 58%,#ffba49)}
+.social-instagram:before{content:"";position:absolute;width:13px;height:13px;border:2px solid #fff;border-radius:5px}
+.social-instagram:after{content:"";position:absolute;width:3px;height:3px;right:5px;top:5px;border-radius:50%;background:#fff}
+.social-youtube{border-radius:8px;background:linear-gradient(145deg,#ff3d63,#df002b)}
+.social-youtube:before{content:"";width:0;height:0;margin-left:2px;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:8px solid #fff;filter:drop-shadow(0 0 2px rgba(255,255,255,.5))}
+.social-stack span{display:inline-flex;align-items:center;gap:11px}
+.social-stack .social-icon{width:31px;height:31px}
+
+@media(max-width:760px){.footer-links{gap:14px;flex-wrap:wrap}.footer-links a{gap:6px}.footer-links b{font-size:8px}.tunnel-stage{inset:-1%}}
+@media(prefers-reduced-motion:reduce){.tunnel-canvas{display:block}}
