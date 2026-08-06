@@ -1,255 +1,78 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" data-page="top">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>294. | Official Website</title>
-<link rel="icon" type="image/png" href="294_logo_White_AI_data_0226-removebg-preview.png">
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --fg:#ffffff;
-  --muted:rgba(255,255,255,.72);
-  --line:rgba(255,255,255,.18);
-  --soft:rgba(255,255,255,.10);
-}
-
-body{
-  color:var(--fg);
-  font-family: ui-sans-serif, system-ui, -apple-system,
-  "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
-  background:url("bg.png") center / cover no-repeat fixed;
-}
-
-a{color:inherit;text-decoration:none}
-.container{max-width:1120px;margin:0 auto;padding:0 20px}
-
-.bg-dim{
-  min-height:100vh;
-  background:linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.78));
-}
-
-/* ====== PAGE DIM OVERLAY（nav hoverでページ全体を暗く） ====== */
-.page-dim{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.22);
-  opacity:0;
-  transition:opacity .18s ease;
-  pointer-events:none;
-  z-index:9; /* header(10)より下 */
-}
-body.nav-hover .page-dim{opacity:1}
-
-/* ====== HEADER（共通） ====== */
-header{
-  position:sticky;top:0;z-index:10;
-  background:rgba(0,0,0,.45);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line);
-}
-.header-inner{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:110px;
-}
-
-/* ====== NAV（共通） ====== */
-nav{
-  display:flex;
-  justify-content:center;
-  gap:40px;
-  align-items:center;
-}
-nav a{
-  display:inline-flex;
-  align-items:center;
-  padding:10px 6px;
-  transition: transform .22s ease, opacity .22s ease, filter .22s ease;
-  transform:translateZ(0);
-  position:relative;
-  z-index:10;
-}
-.nav-sticker{
-  height:90px;
-  width:auto;
-  display:block;
-  filter: drop-shadow(0 20px 40px rgba(0,0,0,.65));
-  transition: transform .22s ease, filter .22s ease;
-}
-
-/* PC hover（過剰拡大＋他を薄く） */
-@media (hover:hover) and (pointer:fine){
-  nav:hover a{opacity:.25;filter:brightness(.78)}
-  nav a:hover{opacity:1;filter:brightness(1);transform:scale(1.55);z-index:11}
-  nav a:hover .nav-sticker{filter: drop-shadow(0 28px 55px rgba(0,0,0,.78))}
-  nav a:active{transform:scale(1.42)}
-}
-
-/* スマホ：中央固定 */
-@media (max-width:560px){
-  .header-inner{height:88px}
-  nav{
-    width:100%;
-    justify-content:center;
-    gap:10px;
-    overflow:hidden;
-  }
-  nav a{
-    padding:8px 0;
-    flex:0 0 auto;
-    justify-content:center;
-    transform:none !important;
-  }
-  .nav-sticker{height:56px}
-}
-
-/* ====== HERO / SECTION ====== */
-.hero{
-  padding:160px 0 120px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-}
-.hero-logo{
-  width:100%;
-  max-width:980px;
-}
-.hero-logo img{
-  width:100%;
-  height:auto;
-  display:block;
-  animation: floatLogo 6s ease-in-out infinite;
-  filter:
-    drop-shadow(0 30px 60px rgba(0,0,0,.60))
-    drop-shadow(0 0 42px rgba(120,160,255,.30));
-  transform: translateZ(0);
-}
-@keyframes floatLogo{
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-14px)}
-  100%{transform:translateY(0)}
-}
-@media (prefers-reduced-motion: reduce){
-  .hero-logo img{animation:none}
-}
-@media (max-width:560px){
-  .hero{padding:140px 0 90px}
-  .hero-logo{max-width:92vw}
-}
-
-/* content */
-.section{padding:70px 0;border-top:1px solid var(--line)}
-.section h2{font-size:13px;letter-spacing:.25em;margin-bottom:24px;opacity:.95}
-.card{
-  border:1px solid var(--line);
-  background:rgba(0,0,0,.35);
-  backdrop-filter:blur(8px);
-  padding:28px;
-  border-radius:18px;
-}
-footer{
-  border-top:1px solid var(--line);
-  padding:30px 0;
-  font-size:12px;
-  color:var(--muted);
-  text-align:center;
-}
-
-/* ===== TOPのNEWSティザー（追加） ===== */
-.news-teaser{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-.news-teaser a{
-  display:flex;
-  align-items:baseline;
-  gap:14px;
-  padding:14px 16px;
-  border:1px solid var(--line);
-  border-radius:14px;
-  background:rgba(0,0,0,.28);
-  transition:transform .18s ease, background .18s ease, opacity .18s ease;
-}
-.news-teaser a:hover{transform:scale(1.01); background:rgba(0,0,0,.33)}
-.news-teaser .date{
-  font-size:12px;
-  color:var(--muted);
-  letter-spacing:.12em;
-  white-space:nowrap;
-}
-.news-teaser .title{
-  font-size:14px;
-  font-weight:700;
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#08090d">
+  <meta name="description" content="アーティスト 294. のオフィシャルサイト。最新情報、音楽、プロフィールはこちら。">
+  <title>294. — Official Website</title>
+  <link rel="stylesheet" href="/assets/site.css?v=20260806-8">
+  <script defer src="/assets/site.js?v=20260806-8"></script>
 </head>
-
 <body>
-<div class="page-dim" aria-hidden="true"></div>
-
-<div class="bg-dim">
-<header>
-  <div class="container header-inner">
-    <nav aria-label="Site navigation">
-      <a href="index.html" aria-label="TOP"><img class="nav-sticker" src="top_touka.png" alt="TOP"></a>
-      <a href="news.html" aria-label="NEWS"><img class="nav-sticker" src="news_touka.png" alt="NEWS"></a>
-      <a href="discography.html" aria-label="DISCOGRAPHY"><img class="nav-sticker" src="discography_touka.png" alt="DISCOGRAPHY"></a>
-      <a href="about.html" aria-label="ABOUT"><img class="nav-sticker" src="about_touka.png" alt="ABOUT"></a>
-      <a href="contact.html" aria-label="CONTACT"><img class="nav-sticker" src="contact_touka.png" alt="CONTACT"></a>
+  <header class="site-header">
+    <a class="wordmark" href="/" aria-label="294. トップへ">294<span>.</span></a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span><b>MENU</b></button>
+    <nav id="site-nav" class="site-nav" aria-label="メインメニュー">
+      <a class="active" href="/">TOP</a><a href="/news/">NEWS</a><a href="/discography/">MUSIC</a><a href="/about/">PROFILE</a><a href="/contact/">CONTACT</a>
     </nav>
-  </div>
-</header>
+  </header>
 
-<main class="container">
-  <section class="hero">
-    <h1 class="hero-logo">
-      <img src="294_logo_White_AI_data_0226-removebg-preview.png" alt="294.">
-    </h1>
-  </section>
-
-  <section class="section">
-    <h2>TOP</h2>
-    <div class="card">Coming soon</div>
-  </section>
-
-  <!-- ★追加：TOPにNEWSタブ（タイトルだけ） -->
-  <section class="section">
-    <h2>NEWS</h2>
-    <div class="card">
-      <div class="news-teaser">
-        <a href="news.html#news-1" aria-label="NEWS: coming soon">
-          <span class="date">2026/xx/xx</span>
-          <span class="title">coming soon</span>
-        </a>
-
-        <a href="news.html#news-2" aria-label="NEWS: 1st Single &quot;xxxx&quot;">
-          <span class="date">2026/xx/xx</span>
-          <span class="title">1st Single &quot;xxxx&quot;</span>
-        </a>
+  <main>
+    <section class="hero">
+      <div class="tunnel-stage">
+        <img class="hero-art tunnel-layer tunnel-one" src="/assets/images/294-y2k-base-v3.png?v=20260806-8" alt="ワイヤーフレームの無限回廊が続く294.のY2Kキービジュアル">
+        <img class="hero-art tunnel-layer tunnel-two" src="/assets/images/294-y2k-base-v3.png?v=20260806-8" alt="">
+        <img class="hero-art tunnel-layer tunnel-three" src="/assets/images/294-y2k-base-v3.png?v=20260806-8" alt="">
       </div>
-    </div>
-  </section>
-</main>
+      <div class="object-stage" aria-hidden="true">
+        <span class="object-layer object-planet" data-depth="1.2"></span>
+        <span class="object-layer object-heart" data-depth="1.8"></span>
+        <span class="object-layer object-stars" data-depth="2.3"></span>
+        <span class="object-layer object-blob" data-depth="1.5"></span>
+        <span class="object-layer object-heart-mini" data-depth="2.8"></span>
+        <span class="object-layer object-stars-mini" data-depth="3.1"></span>
+      </div>
+      <div class="hero-shade"></div>
+      <div class="y2k-layer" aria-hidden="true">
+        <span class="pixel-star star-a">✦</span><span class="pixel-star star-b">✧</span>
+        <span class="hud-code">SYS_294 // DREAM LINK</span>
+        <span class="hud-time">00:02:94</span>
+        <span class="corner corner-a"></span><span class="corner corner-b"></span>
+      </div>
+      <div class="hero-copy">
+        <h1><span>294</span><i>.</i></h1>
+      </div>
+      <div class="hero-footer"><span>JAPAN / ARTIST</span><a href="#latest">SCROLL TO DISCOVER ↓</a></div>
+      <div class="signal-strip" aria-hidden="true"><span>294. DIGITAL ANGEL　✦　NEW WAVE LOADING　✦　294. DIGITAL ANGEL　✦　NEW WAVE LOADING　✦　</span><span>294. DIGITAL ANGEL　✦　NEW WAVE LOADING　✦　294. DIGITAL ANGEL　✦　NEW WAVE LOADING　✦　</span></div>
+    </section>
 
-<footer>© 294ch works</footer>
-</div>
+    <section id="latest" class="section latest reveal">
+      <div class="section-head"><p>01 / LATEST</p><h2>NEWS</h2><a href="/news/">VIEW ALL ↗</a></div>
+      <a class="news-feature" href="/news/#debut">
+        <span class="news-date">2026.XX.XX</span>
+        <span class="news-title">294. — NEW PROJECT LAUNCHING SOON</span>
+        <span class="arrow">↗</span>
+      </a>
+      <a class="news-feature" href="/news/#single">
+        <span class="news-date">2026.XX.XX</span>
+        <span class="news-title">1ST SINGLE — COMING SOON</span>
+        <span class="arrow">↗</span>
+      </a>
+    </section>
 
-<script>
-const body = document.body;
-const nav = document.querySelector("header nav");
-if (nav) {
-  nav.addEventListener("mouseenter", ()=> body.classList.add("nav-hover"));
-  nav.addEventListener("mouseleave", ()=> body.classList.remove("nav-hover"));
-  nav.addEventListener("focusin", ()=> body.classList.add("nav-hover"));
-  nav.addEventListener("focusout", (e)=>{
-    if(!nav.contains(e.relatedTarget)) body.classList.remove("nav-hover");
-  });
-}
-</script>
+    <section class="statement reveal">
+      <p class="eyebrow">IDENTITY / 294.</p>
+      <p class="statement-copy">NO CATEGORY.<br><span>JUST A NEW FREQUENCY.</span></p>
+      <a class="pill" href="/about/">ENTER PROFILE <span>↗</span></a>
+    </section>
+
+    <section class="music-tease reveal">
+      <div class="orb" aria-hidden="true"><span>294.</span></div>
+      <div><p class="eyebrow">FIRST TRANSMISSION</p><h2>NEW MUSIC<br>COMING SOON</h2><a class="text-link" href="/discography/">GO TO MUSIC →</a></div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><a class="wordmark" href="/">294<span>.</span></a><div class="footer-links"><a href="https://x.com/294ch_com" target="_blank" rel="noopener">X ↗</a><a href="#">INSTAGRAM ↗</a><a href="#">YOUTUBE ↗</a></div><small>© 2026 294CH WORKS</small></footer>
 </body>
 </html>
